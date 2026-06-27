@@ -1,0 +1,41 @@
+
+    #logoEditor {
+        display:none;
+        position:absolute;
+        background:#fff;
+        padding:15px;
+        border:1px solid #ccc;
+        z-index:9999;
+        width:220px;
+    }
+    #logoEditor input, #logoEditor select {
+        width:100%;
+        padding:6px;
+        margin-top:4px;
+    }
+    #logoEditor button {
+        margin-top:10px;
+        width:100%;
+        padding:8px;
+        border:none;
+        cursor:pointer;
+    }
+    #saveLogo {
+        background:#4CAF50;
+        color:#fff;
+    }
+    #cancelLogo {
+        background:#ccc;
+        color:#000;
+    }
+
+    .error {
+        border:2px solid red !important;
+    }
+
+    .warning {
+        font-size:12px;
+        color:red;
+        margin-top:2px;
+        display:none;
+    }
