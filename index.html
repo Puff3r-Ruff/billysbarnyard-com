@@ -1,1046 +1,670 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+<link href="/prefabs/forest-time/css/bootstrap.css" rel="stylesheet">
+<link href="/prefabs/forest-time/css/font-awesome.min.css" rel="stylesheet">
+<link href="/prefabs/forest-time/style.css" rel="stylesheet">
+<link href="/prefabs/forest-time/css/responsive.css" rel="stylesheet">
+<link href="/prefabs/forest-time/css/colors.css" rel="stylesheet">
+<link href="/prefabs/forest-time/css/version/garden.css" rel="stylesheet">
+<style>.bg-aqua{display: none;}.blog-list-widget small{display: none;}</style>
 <style>
-
-/* -------------------- GLOBAL -------------------- */
-
-body{
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    background: #ffffff;
-    color: #333;
-    overflow-x: hidden;
-}
-
-h1, h2, h3, h4{
-    font-family: "Playfair Display", serif;
-    letter-spacing: 0.5px;
-}
-
-:root{
-    --gold: #C9A86A;
-    --soft-pink: #F7EFEA;
-    --dark: #2E2E2E;
-}
-
-/* Fade-in animation */
-.fade-in{
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 1.2s ease forwards;
-}
-
-@keyframes fadeIn{
-    to{
-        opacity: 1;
-        transform: translateY(0);
+    #logoEditor {
+        display:none;
+        position:absolute;
+        background:#fff;
+        padding:15px;
+        border:1px solid #ccc;
+        z-index:9999;
+        width:220px;
     }
-}
-
-/* -------------------- SECTION TITLES -------------------- */
-
-.section-title{
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.section-title h2{
-    font-size: 2.4rem;
-    color: var(--dark);
-    margin-bottom: 10px;
-}
-
-.section-title .line{
-    width: 80px;
-    height: 3px;
-    background: var(--gold);
-    margin: 0 auto;
-    border-radius: 2px;
-}
-
-/* -------------------- NAV -------------------- */
-
-nav{
-    width: 100%;
-    height: 55px;
-    position: relative;
-    background: white;
-    border-bottom: 1px solid #eee;
-    overflow: hidden;
-    z-index: 9999;
-}
-
-nav h4{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    font-size: 1.05rem;
-    margin: 0;
-    color: var(--dark);
-}
-
-nav h4.active{
-    opacity: 1;
-}
-
-.arrow{
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 24px;
-    padding: 5px 10px;
-    cursor: pointer;
-    opacity: 0.5;
-    z-index: 20;
-    color: var(--gold);
-    user-select: none;
-    transition: opacity 0.3s ease;
-}
-
-.arrow:hover{
-    opacity: 1;
-}
-
-.left-arrow{ left: 20px; }
-.right-arrow{ right: 20px; }
-
-/* -------------------- HERO -------------------- */
-
-/* -------------------- HERO -------------------- */
-
-#hero{
-    position: relative;
-    width: 100%;
-    height: 80vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    pointer-events: none;
-}
-
-/* The hero image behaves like background-size: cover */
-#hero .hero-bg{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    animation: heroZoom 18s ease-in-out infinite alternate;
-    z-index: 1;
-    pointer-events: fill;
-}
-
-/* Zoom animation */
-@keyframes heroZoom{
-    from{ transform: scale(1); }
-    to{ transform: scale(1.08); }
-}
-
-/* Gradient overlay */
-#hero::after{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        rgba(0,0,0,0.25),
-        rgba(0,0,0,0.55)
-    );
-    z-index: 2;
-}
-
-/* Text box */
-#hero .hero-text{
-    position: relative;
-    z-index: 3;
-    background: rgba(255,255,255,0.85);
-    padding: 40px 60px;
-    border-radius: 12px;
-    color: var(--dark);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-    max-width: 650px;
-    pointer-events: fill;
-}
-
-#hero h2{
-    margin: 0;
-    font-size: 2.8rem;
-    color: var(--gold);
-}
-
-#hero p{
-    margin-top: 12px;
-    font-size: 1.25rem;
-}
-
-
-/* -------------------- ABOUT SECTION -------------------- */
-
-#about{
-    width: 100%;
-    padding: 30px 0;
-    text-align: center;
-    position: relative;
-    background: var(--soft-pink);
-}
-
-.about-wrapper{
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    position: relative;
-}
-
-.about-tab{
-    width: 30%;
-    background: white;
-    padding: 35px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-    transition: box-shadow 0.3s ease, border 0.3s ease;
-    border: 2px solid transparent;
-}
-
-.about-tab:hover{
-    box-shadow: 0 14px 35px rgba(0,0,0,0.18);
-    border: 2px solid var(--gold);
-}
-
-.about-tab img{
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 20px;
-}
-
-.about-tab h2{
-    color: var(--gold);
-    margin-bottom: 10px;
-    font-size: 1.6rem;
-}
-
-/* ABOUT ARROWS */
-.about-arrow{
-    display: none;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 40px;
-    padding: 10px 15px;
-    cursor: pointer;
-    opacity: 0.4;
-    user-select: none;
-    z-index: 50;
-    color:#fff;
-    transition: opacity 0.3s ease;
-}
-
-.about-arrow:hover{
-    opacity: 1;
-}
-
-.about-left{ left: 20px; }
-.about-right{ right: 20px; }
-
-/* -------------------- GALLERY -------------------- */
-
-#gallery{
-    width: 100%;
-    padding: 60px 0;
-    background: #fff;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-}
-
-#gallery img{
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-}
-
-/* MOBILE: 2×2 grid */
-@media (max-width: 600px){
-    #gallery{
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        padding: 30px 0px;
+    #logoEditor input, #logoEditor select {
+        width:100%;
+        padding:6px;
+        margin-top:4px;
+    }
+    #logoEditor button {
+        margin-top:10px;
+        width:100%;
+        padding:8px;
+        border:none;
+        cursor:pointer;
+    }
+    #saveLogo {
+        background:#4CAF50;
+        color:#fff;
+    }
+    #cancelLogo {
+        background:#ccc;
+        color:#000;
     }
 
-    #gallery img{
-        height: 180px;
-    }
-}
-
-/* -------------------- NEWSLETTER -------------------- */
-
-#newsletter{
-    width: 100%;
-    padding: 20px 0;
-    background: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.newsletter-inner{
-    background:#fff;
-    padding: 50px 60px;
-    border-radius: 16px;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.12);
-    text-align: center;
-    width: 90%;
-}
-
-#newsletter h2{
-    font-size: 2.2rem;
-    color: var(--gold);
-    margin-bottom: 10px;
-}
-
-#newsletter p{
-    font-size: 1.1rem;
-    color: var(--dark);
-    margin-bottom: 25px;
-}
-
-.newsletter-form{
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-.newsletter-form input{
-    padding: 14px 5px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    width: 65%;
-    font-size: 1rem;
-}
-
-.newsletter-form button{
-    padding: 14px 22px;
-    background: var(--gold);
-    border: none;
-    color: white;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.newsletter-form button:hover{
-    background: #b89455;
-}
-
-/* Mobile newsletter */
-@media (max-width: 600px){
-    .newsletter-inner{
-        padding: 40px 25px;
+    .error {
+        border:2px solid red !important;
     }
 
-    .newsletter-form{
-        flex-direction: column;
-        gap: 15px;
+    .warning {
+        font-size:12px;
+        color:red;
+        margin-top:2px;
+        display:none;
     }
-
-    .newsletter-form input{
-        width: 100%;
-    }
-}
-
-/* -------------------- CONTACT SECTION -------------------- */
-
-#contact{
-    width: 100%;
-    padding: 40px 0;
-    background: var(--soft-pink);
-    display: flex;
-    justify-content: center;
-}
-
-.contact-inner{
-    background: white;
-    padding: 60px;
-    border-radius: 16px;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.12);
-    max-width: 900px;
-    width: 90%;
-    display: flex;
-    gap: 40px;
-}
-
-.contact-info{
-    width: 50%;
-}
-
-.contact-info h2{
-    font-size: 2.2rem;
-    color: var(--gold);
-    margin-bottom: 10px;
-}
-
-.contact-info p{
-    font-size: 1.1rem;
-    color: var(--dark);
-    margin-bottom: 15px;
-}
-
-.contact-details p{
-    margin: 8px 0;
-    font-size: 1rem;
-}
-
-.contact-form{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.contact-form input,
-.contact-form textarea{
-    width: 100%;
-    padding: 14px 5px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    font-family: inherit;
-}
-
-.contact-form textarea{
-    height: 140px;
-    resize: none;
-}
-
-.contact-form button{
-    padding: 14px 22px;
-    background: var(--gold);
-    border: none;
-    color: white;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.contact-form button:hover{
-    background: #b89455;
-}
-
-/* MOBILE */
-@media (max-width: 600px){
-
-    .contact-inner{
-        flex-direction: column;
-        padding: 40px 25px;
-    }
-
-    .contact-info,
-    .contact-form{
-        width: 100%;
-    }
-}
-
-
-/* -------------------- ABOUT MOBILE FIX -------------------- */
-
-@media (max-width: 600px){
-    .about-wrapper {
-    display: block;
-    justify-content: center;
-    gap: 40px;
-    position: relative;}
-
-.about-tab {
-    width: 100%;
-    background: white;
-    padding: 0rem;
-    border-radius: 0px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    transition: box-shadow 0.3s ease, border 0.3s ease;
-    border: 2px solid transparent;
-    margin-bottom: 0rem;
-}
-
-.about-tab img {
-    width: 100%;
-    object-fit: cover;
-    border-radius: 0px;
-    margin-bottom: 20px;
-}
-
-#hero{
-    position: relative;
-    width: 100%;
-    height: 40vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-#hero .hero-text {
-    position: relative;
-    z-index: 3;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 20px 0px 20px 0px;
-    border-radius: 0px;
-    color: var(--dark);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-    /* max-width: 650px; */
-    width: 100%;
-}
- #hero h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    color: var(--gold);   
-}
-#hero p{display: none;}
-
-.section-title h2 {
-    font-size: 1.8rem;
-    color: var(--dark);
-    margin-bottom: 10px;
-}
-
 </style>
-<style>
-.templateNav-wrapper {
-  position: relative;
-  background: #eee;
-  padding: 1rem;
-}
-
-/* DESKTOP LAYOUT */
-.template-list {
-  display: flex;
-  gap: 25px;
-  justify-content: center;
-}
-
-.template-card {
-  width: 300px;
-  background: #222;
-  border-radius: 14px;
-  padding: 14px;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-  transition: transform .4s ease, box-shadow .4s ease, opacity .4s ease;
-  opacity: 0.6;
-}
-
-.template-card.active {
-  transform: scale(1.05);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-  opacity: 1;
-}
-
-.template-card img {
-  width: 100%;
-  height: 272px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-.price {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin: 8px 0;
-  color: #4ade80;
-}
-
-.btn {
-  display: inline-block;
-  padding: 8px 14px;
-  background: #2563eb;
-  color: #fff;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: .85rem;
-}
-
-/* MOBILE MODE */
-@media (max-width: 600px) {
-  .template-list {
-    display: block;
-    position: relative;
-    height: 500px;
-    overflow: hidden;
-  }
-
-  .template-card {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 90%;
-    transform: translateX(-50%);
-    opacity: 0;
-  }
-
-  .template-card.active {
-    opacity: 1;
-    transform: translateX(-50%) scale(1.02);
-  }
-
-  /* RENAMED ARROWS */
-  .templateNav-arrow {
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.15);
-    border: none;
-    color: #fff;
-    font-size: 26px;
-    padding: 6px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  .templateNav-left { left: 10px; }
-  .templateNav-right { right: 10px; }
-}
-
-/* HIDE ARROWS ON DESKTOP */
-@media (min-width: 601px) {
-  .templateNav-arrow { display: none; }
-}
-</style>
-<link rel="stylesheet" href="css/css2">
-<link rel="stylesheet" href="css/css2">
-<link rel="stylesheet" href="css/inline_1.1782647497474.css">
-<link rel="stylesheet" href="css/inline_2.1782647497474.css">
-<link rel="stylesheet" href="css/inline_3.1782647497474.css">
+<link rel="stylesheet" href="css/css">
+<link rel="stylesheet" href="css/css">
+<link rel="stylesheet" href="css/garden.1782648457049.css">
+<link rel="stylesheet" href="css/font-awesome.min.1782648457049.css">
+<link rel="stylesheet" href="css/colors.1782648457049.css">
+<link rel="stylesheet" href="css/bootstrap.1782648457049.css">
+<link rel="stylesheet" href="css/responsive.1782648457049.css">
+<link rel="stylesheet" href="css/style.1782648457049.css">
+<link rel="stylesheet" href="css/colors.1782648457049.css">
+<link rel="stylesheet" href="css/garden.1782648457049.css">
+<link rel="stylesheet" href="css/responsive.1782648457049.css">
+<link rel="stylesheet" href="css/bootstrap.1782648457049.css">
+<link rel="stylesheet" href="css/font-awesome.min.1782648457049.css">
+<link rel="stylesheet" href="css/style.1782648457049.css">
+<link rel="stylesheet" href="css/inline_1.1782648457049.css">
+<link rel="stylesheet" href="css/inline_2.1782648457049.css">
+<link rel="stylesheet" href="css/inline_3.1782648457049.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
 
 
+    <!-- Basic -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Luxury Florist</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-<script>
-
-function initTemplateNavSlider() {
-  let templateNavIndex = 0;
-  const templateNavCards = document.querySelectorAll(".template-card");
-  const templateNavPrev = document.querySelector(".templateNav-left");
-  const templateNavNext = document.querySelector(".templateNav-right");
-
-  if (!templateNavCards.length) return;
-
-  function templateNavShowCard(i) {
-    templateNavCards.forEach(c => c.classList.remove("active"));
-    templateNavCards[i].classList.add("active");
-  }
-
-  if (templateNavPrev && templateNavNext) {
-    templateNavNext.onclick = () => {
-      templateNavIndex = (templateNavIndex + 1) % templateNavCards.length;
-      templateNavShowCard(templateNavIndex);
-    };
-
-    templateNavPrev.onclick = () => {
-      templateNavIndex = (templateNavIndex - 1 + templateNavCards.length) % templateNavCards.length;
-      templateNavShowCard(templateNavIndex);
-    };
-
-    setInterval(() => {
-      templateNavIndex = (templateNavIndex + 1) % templateNavCards.length;
-      templateNavShowCard(templateNavIndex);
-    }, 3000);
-  }
-}
-
-// Mobile hamburger toggle
-document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.getElementById("nav-toggle");
-  const links = document.getElementById("nav-links");
-
-  if (toggle && links) {
-    toggle.addEventListener("click", () => {
-      links.classList.toggle("show");
-    });
-  }
-});
-
-async function loadProducts() {
-  const wrapper = document.querySelector(".templateNav-wrapper");
-  const list = document.querySelector(".template-list");
-
-  if (!wrapper || !list) {
-    console.error("Wrapper or list not found in DOM.");
-    return;
-  }
-
-  /* ---------------------------------------------------
-     1) PREVIEW MODE → ALWAYS SHOW DEFAULT PRODUCTS + NAV
-  --------------------------------------------------- */
-  if (window.previewMode) {
-    console.log("Preview mode enabled — using default products.");
-    wrapper.style.display = "block";
-    return;
-  }
-
-  /* ---------------------------------------------------
-     2) NORMAL MODE → TRY LOADING products.json
-  --------------------------------------------------- */
-  try {
-    const res = await fetch("Products/products.json");
-
-    // JSON missing → hide wrapper + hide nav
-    if (!res.ok) {
-      console.warn("products.json not found — hiding store.");
-      wrapper.style.display = "none";
-      return;
-    }
-
-    // JSON exists → show wrapper + show nav
-    wrapper.style.display = "block";
-    showStoreNav();
-
-    const data = await res.json();
-    const products = data.products ?? [];
-
-    list.innerHTML = "";
-
-    products.forEach((p) => {
-      const lowestVariant = p.variants?.length
-        ? p.variants.reduce((min, v) => (v.price < min.price ? v : min))
-        : null;
-
-      const price = lowestVariant ? lowestVariant.price : p.basePrice ?? "N/A";
-
-      const card = document.createElement("div");
-      card.className = "template-card";
-
-      card.innerHTML = `
-        <img src="${p.image}" alt="">
-        <h3>${p.name}</h3>
-        <p>${p.description}</p>
-        <div class="price">€${price}</div>
-        <a class="btn" href="#">Add To Cart</a>
-      `;
-
-      list.appendChild(card);
-    });
-
-    initTemplateNavSlider();
-
-  } catch (err) {
-    console.error("Error loading products:", err);
-    wrapper.style.display = "none";
-    hideStoreNav();
-  }
-}
-
-    document.addEventListener("DOMContentLoaded", () => {
-  // Make preview mode globally accessible
-  const urlParams = new URLSearchParams(window.location.search);
-  window.previewMode = urlParams.get("preview") === "true";
-
-  loadProducts();
-});
-</script>
-
-
-
-
-
-
-
-<!-- nav section -->
-<nav>
-    <div class="arrow left-arrow">❮</div>
-    <div class="arrow right-arrow">❯</div>
-
-    <h4 class="slide" data-text-edit-listener="true" style="cursor: pointer;">Email: info@florist.com</h4>
-    <h4 class="slide" data-text-edit-listener="true" style="cursor: pointer;">Phone: 000 000 000</h4>
-    <h4 class="slide" data-text-edit-listener="true" style="cursor: pointer;">Location: Cork</h4>
-</nav>
-
-<!-- hero section -->
-<!-- hero section -->
-<div id="hero">
-    <img class="hero-bg" src="images/img_0.1782647497474.jpg" alt="Luxury Florist Hero" style="cursor: pointer;">
-
-    <div class="hero-text fade-in">
-        <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Luxury Floral Design</h2>
-        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Hand‑crafted arrangements for weddings, events &amp; special moments</p>
-    </div>
-</div>
-
-
-<!-- about us section -->
-<div id="about">
-
-    <div class="section-title fade-in">
-        <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Our Expertise</h2>
-        <div class="line"></div>
-    </div>
-
-    <div class="about-arrow about-left">❮</div>
-    <div class="about-arrow about-right">❯</div>
-
-    <div class="about-wrapper">
-
-        <div class="about-tab fade-in">
-            <img src="images/img_1.1782647497474.jpg" style="cursor: pointer;">
-            <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Wedding Florals</h2>
-            <p style="padding: 0rem 2rem 2rem; cursor: pointer;" data-text-edit-listener="true" class="">Elegant bouquets, arches &amp; centerpieces designed to elevate your big day.</p>
-        </div>
-
-        <div class="about-tab fade-in">
-            <img src="images/img_2.1782647497474.jpg" style="cursor: pointer;">
-            <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Event Styling</h2>
-            <p style="padding: 0rem 2rem 2rem; cursor: pointer;" data-text-edit-listener="true" class="">Luxury floral styling for corporate events, launches &amp; celebrations.</p>
-        </div>
-
-        <div class="about-tab fade-in">
-            <img src="images/img_3.1782647497474.jpg" style="cursor: pointer;">
-            <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Bespoke Bouquets</h2>
-            <p style="padding: 0rem 2rem 2rem; cursor: pointer;" data-text-edit-listener="true" class="">Hand‑crafted arrangements tailored to your style, mood &amp; occasion.</p>
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Store Snippet Start -->
-<div class="templateNav-wrapper">
-  <div class="template-list">
-
-    <div class="template-card active">
-      <img src="images/img_4.1782647497474.jpg" alt="" style="cursor: pointer;">
-      <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
-      <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
-      <div class="price">€29</div>
-      <a class="btn" href="/prefabs/florist/#">Buy Now</a>
-    </div>
-
-    <div class="template-card">
-      <img src="images/img_5.1782647497474.jpg" alt="" style="cursor: pointer;">
-      <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
-      <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
-      <div class="price">€19</div>
-      <a class="btn" href="/prefabs/florist/#">Buy Now</a>
-    </div>
-
-    <div class="template-card">
-      <img src="images/img_6.1782647497474.jpg" alt="" style="cursor: pointer;">
-      <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
-      <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
-      <div class="price">€39</div>
-      <a class="btn" href="/prefabs/florist/#">Buy Now</a>
-    </div>
-
-    <div class="template-card">
-      <img src="images/img_7.1782647497474.jpg" alt="" style="cursor: pointer;">
-      <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
-      <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
-      <div class="price">€19</div>
-      <a class="btn" href="/prefabs/florist/#">Buy Now</a>
-    </div>
-
-    <div class="template-card">
-      <img src="images/img_8.1782647497474.jpg" alt="" style="cursor: pointer;">
-      <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
-      <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
-      <div class="price">€39</div>
-      <a class="btn" href="/prefabs/florist/#">Buy Now</a>
-    </div>
-
-  </div>
-
-  <!-- MOBILE ARROWS (renamed to avoid conflicts) -->
-  <button class="templateNav-arrow templateNav-left" data-button-edit-listener="true" style="cursor: pointer;">❮</button>
-  <button class="templateNav-arrow templateNav-right" data-button-edit-listener="true" style="cursor: pointer;">❯</button>
-</div>
-
-
-
-<script>
-let templateNavIndex = 0;
-const templateNavCards = document.querySelectorAll(".template-card");
-const templateNavPrev = document.querySelector(".templateNav-left");
-const templateNavNext = document.querySelector(".templateNav-right");
-
-function templateNavShowCard(i) {
-  templateNavCards.forEach(c => c.classList.remove("active"));
-  templateNavCards[i].classList.add("active");
-}
-
-if (templateNavPrev && templateNavNext) {
-  templateNavNext.addEventListener("click", () => {
-    templateNavIndex = (templateNavIndex + 1) % templateNavCards.length;
-    templateNavShowCard(templateNavIndex);
-  });
-
-  templateNavPrev.addEventListener("click", () => {
-    templateNavIndex = (templateNavIndex - 1 + templateNavCards.length) % templateNavCards.length;
-    templateNavShowCard(templateNavIndex);
-  });
-
-  setInterval(() => {
-    templateNavIndex = (templateNavIndex + 1) % templateNavCards.length;
-    templateNavShowCard(templateNavIndex);
-  }, 3000);
-}
-</script>
-<!-- Store Snippet End -->
-
-<!-- gallery -->
-<div id="gallery">
-    <img src="images/img_9.1782647497474.jpg" style="cursor: pointer;">
-    <img src="images/img_10.1782647497474.jpg" style="cursor: pointer;">
-    <img src="images/img_11.1782647497474.jpg" style="cursor: pointer;">
-    <img src="images/img_12.1782647497474.jpg" style="cursor: pointer;">
-</div>
-
-
-<!-- newsletter section -->
-<div id="newsletter">
-    <div class="newsletter-inner fade-in">
-        <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Join Our Newsletter</h2>
-        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Be the first to receive exclusive floral offers, seasonal collections &amp; event updates.</p>
-
-        <form class="newsletter-form">
-            <input type="email" placeholder="Enter your email address" required="">
-            <button type="submit" data-button-edit-listener="true" style="cursor: pointer;">Subscribe</button>
-        </form>
-    </div>
-</div>
-
-<!-- contact section -->
-<div id="contact">
-    <div class="contact-inner fade-in">
-
-        <div class="contact-info">
-            <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Contact Us</h2>
-            <p data-text-edit-listener="true" class="" style="cursor: pointer;">We’d love to hear from you. Whether you're planning a wedding, event, or looking for something bespoke — our team is here to help.</p>
-
-            <div class="contact-details">
-                <strong>Email:</strong><p data-text-edit-listener="true" class="" style="cursor: pointer;"> info@florist.com</p>
-                <strong>Phone:</strong><p data-text-edit-listener="true" class="" style="cursor: pointer;"> 000 000 000</p>
-                <strong>Location:</strong><p data-text-edit-listener="true" class="" style="cursor: pointer;"> Cork, Ireland</p>
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Site Metas -->
+    <title>Stylish Template</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="" type="">
+    <link rel="apple-touch-icon" href="">
+    
+    <!-- Design fonts -->
+     
+
+    <!-- Bootstrap core CSS -->
+    
+
+    <!-- FontAwesome Icons core CSS -->
+    
+
+    <!-- Custom styles for this template -->
+    
+
+    <!-- Responsive styles for this template -->
+    
+
+    <!-- Colors for this template -->
+    
+
+    <!-- Version Garden CSS for this template -->
+    
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+    <div id="wrapper">
+        
+<div class="topbar-section">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="topsocial">
+                            <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
+                            <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i class="fa fa-youtube"></i></a>
+                            <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                            <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Flickr"><i class="fa fa-flickr"></i></a>
+                            <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
+                            <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Google+"><i class="fa fa-google-plus"></i></a>
+                        </div><!-- end social -->
+                    </div><!-- end col -->
+
+                    <div class="col-lg-4 hidden-md-down">
+                    </div><!-- end col -->
+
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end header-logo -->
+        </div><!-- end topbar -->
+
+        
+
+<div class="header-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="logo" id="logoArea" style="cursor:pointer;">
+                    <img id="logoImage" src="images/img_0.1782648457049.jpg" width="300" height="100" alt="">
+                </div>
             </div>
         </div>
-
-        <form class="contact-form">
-            <input type="text" placeholder="Your Name" required="">
-            <input type="email" placeholder="Your Email" required="">
-            <textarea placeholder="Your Message" required=""></textarea>
-            <button type="submit" data-button-edit-listener="true" style="cursor: pointer;">Send Message</button>
-        </form>
-
     </div>
 </div>
 
+<div id="logoEditor">
+    <label>Business Name</label>
+    <input type="text" id="bizName">
+    <div id="nameWarn" class="warning">Too long</div>
 
+    <label>Slogan</label>
+    <input type="text" id="bizSlogan">
+    <div id="sloganWarn" class="warning">Too long</div>
 
+    <label>Font Style</label>
+    <select id="fontStyle">
+        <option value="Arial">Arial</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Impact">Impact</option>
+        <option value="Garamond">Garamond</option>
+        <option value="Lucida Console">Lucida Console</option>
+        <option value="Trebuchet MS">Trebuchet MS</option>
+        <option value="Cambria">Cambria</option>
+    </select>
 
+    <button id="saveLogo" data-button-edit-listener="true" style="cursor: pointer;">Save</button>
+    <button id="cancelLogo" data-button-edit-listener="true" style="cursor: pointer;">Cancel</button>
+</div>
 
 <script>
+    const logoArea = document.getElementById("logoArea");
+    const logoEditor = document.getElementById("logoEditor");
+    const saveBtn = document.getElementById("saveLogo");
+    const cancelBtn = document.getElementById("cancelLogo");
 
-/* -------------------- NAV CAROUSEL -------------------- */
+    const bizName = document.getElementById("bizName");
+    const bizSlogan = document.getElementById("bizSlogan");
+    const fontSelect = document.getElementById("fontStyle");
 
-const slides = document.querySelectorAll(".slide");
-const leftArrow = document.querySelector(".left-arrow");
-const rightArrow = document.querySelector(".right-arrow");
+    const nameWarn = document.getElementById("nameWarn");
+    const sloganWarn = document.getElementById("sloganWarn");
 
-let index = 0;
-let autoRotate;
+    const MAX_NAME_CHARS = 18;
+    const MAX_SLOGAN_CHARS = 25;
 
-function showSlide(i){
-    slides.forEach(s => s.classList.remove("active"));
-    slides[i].classList.add("active");
-}
+    logoArea.addEventListener("click", function(e) {
+        logoEditor.style.display = "block";
+        logoEditor.style.left = e.pageX + "px";
+        logoEditor.style.top = e.pageY + "px";
+    });
 
-function nextSlide(){
-    index = (index + 1) % slides.length;
-    showSlide(index);
-}
+    cancelBtn.addEventListener("click", function() {
+        logoEditor.style.display = "none";
+    });
 
-function prevSlide(){
-    index = (index - 1 + slides.length) % slides.length;
-    showSlide(index);
-}
+    // HARD LIMIT ENFORCEMENT
+    function enforceLimit(input, max, warningBox) {
+        if (input.value.length > max) {
+            input.value = input.value.substring(0, max); // hard stop
+        }
 
-function startAuto(){
-    autoRotate = setInterval(nextSlide, 3000);
-}
+        if (input.value.length >= max) {
+            input.classList.add("error");
+            warningBox.style.display = "block";
+        } else {
+            input.classList.remove("error");
+            warningBox.style.display = "none";
+        }
+    }
 
-function stopAuto(){
-    clearInterval(autoRotate);
-}
+    bizName.addEventListener("input", () => {
+        enforceLimit(bizName, MAX_NAME_CHARS, nameWarn);
+    });
 
-showSlide(index);
-startAuto();
+    bizSlogan.addEventListener("input", () => {
+        enforceLimit(bizSlogan, MAX_SLOGAN_CHARS, sloganWarn);
+    });
 
-rightArrow.addEventListener("click", () => { stopAuto(); nextSlide(); });
-leftArrow.addEventListener("click", () => { stopAuto(); prevSlide(); });
+    saveBtn.addEventListener("click", function() {
 
-/* -------------------- ABOUT CAROUSEL -------------------- */
+        if (bizName.value.trim() === "" || bizSlogan.value.trim() === "") {
+            return;
+        }
 
-const aboutTabs = document.querySelectorAll(".about-tab");
-const aboutLeft = document.querySelector(".about-left");
-const aboutRight = document.querySelector(".about-right");
+        const name = bizName.value.toUpperCase();
+        const slogan = bizSlogan.value.toUpperCase();
+        const fontChoice = fontSelect.value;
 
-let aboutIndex = 0;
-let aboutAuto;
+        const canvas = document.createElement("canvas");
+        canvas.width = 300;
+        canvas.height = 100;
+        const ctx = canvas.getContext("2d");
 
-function showAbout(i){
-    aboutTabs.forEach(t => t.classList.remove("active"));
-    aboutTabs[i].classList.add("active");
-}
+        ctx.clearRect(0, 0, 300, 100);
 
-function nextAbout(){
-    aboutIndex = (aboutIndex + 1) % aboutTabs.length;
-    showAbout(aboutIndex);
-}
+        // MAIN TITLE
+        ctx.font = "bold 32px " + fontChoice;
+        ctx.fillStyle = "#000000";
 
-function prevAbout(){
-    aboutIndex = (aboutIndex - 1 + aboutTabs.length) % aboutTabs.length;
-    showAbout(aboutIndex);
-}
+        let nameWidth = ctx.measureText(name).width;
+        let nameX = (300 - nameWidth) / 2;
+        ctx.fillText(name, nameX, 40);
 
-function startAboutAuto(){
-    aboutAuto = setInterval(nextAbout, 3000);
-}
+        // TAGLINE
+        ctx.font = "16px " + fontChoice;
+        ctx.fillStyle = "#2E7D32";
 
-function stopAboutAuto(){
-    clearInterval(aboutAuto);
-}
+        let sloganWidth = ctx.measureText(slogan).width;
+        let sloganX = (300 - sloganWidth) / 2;
+        ctx.fillText(slogan, sloganX, 75);
 
-showAbout(aboutIndex);
-startAboutAuto();
+        const pngURL = canvas.toDataURL("image/png");
 
-aboutRight.addEventListener("click", () => { stopAboutAuto(); nextAbout(); });
-aboutLeft.addEventListener("click", () => { stopAboutAuto(); prevAbout(); });
+        document.getElementById("logoArea").innerHTML =
+            `<img src="${pngURL}" width="300" height="100" alt="Generated Logo">`;
 
+        const footerLogo = document.getElementById("footerLogo");
+        if (footerLogo) {
+            footerLogo.src = pngURL;
+            footerLogo.width = 300;
+            footerLogo.height = 100;
+        }
+
+        logoEditor.style.display = "none";
+    });
 </script>
+
+
+
+        <section class="section first-section">
+            <div class="container-fluid">
+                <div class="masonry-blog clearfix">
+                    <div class="left-side">
+                        <div class="masonry-box post-media">
+                             <img src="images/img_1.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                             <div class="shadoweffect">
+                                <div class="shadow-desc">
+                                    <div class="blog-meta">
+                                        <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a href="/prefabs/forest-time/blog-category-01.html" title="">Gardening</a></span>
+                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-single.html" title="">How to choose high quality soil for your gardens</a></h4>
+                                        <small><a href="/prefabs/forest-time/garden-single.html" title="">21 July, 2017</a></small>
+                                        <small><a href="/prefabs/forest-time/#" title="">by Amanda</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                            </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end left-side -->
+
+                    <div class="center-side">
+                        <div class="masonry-box post-media">
+                             <img src="images/img_2.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                             <div class="shadoweffect">
+                                <div class="shadow-desc">
+                                    <div class="blog-meta">
+                                        <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a href="/prefabs/forest-time/blog-category-01.html" title="">Outdoor</a></span>
+                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-single.html" title="">You can create a garden with furniture in your home</a></h4>
+                                        <small><a href="/prefabs/forest-time/garden-single.html" title="">19 July, 2017</a></small>
+                                        <small><a href="/prefabs/forest-time/#" title="">by Amanda</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                            </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end left-side -->
+
+                    <div class="right-side">
+                        <div class="masonry-box post-media">
+                             <img src="images/img_3.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                             <div class="shadoweffect">
+                                <div class="shadow-desc">
+                                    <div class="blog-meta">
+                                        <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a href="/prefabs/forest-time/blog-category-01.html" title="">Indoor</a></span>
+                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-single.html" title="">The success of the 10 companies in the vegetable sector</a></h4>
+                                        <small><a href="/prefabs/forest-time/garden-single.html" title="">03 July, 2017</a></small>
+                                        <small><a href="/prefabs/forest-time/#" title="">by Jessica</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                             </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end right-side -->
+                </div><!-- end masonry -->
+            </div>
+        </section>
+
+        <section class="section wb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                        <div class="page-wrapper">
+                            <div class="blog-list clearfix">
+                                <div class="blog-box row">
+                                    <div class="col-md-4">
+                                        <div class="post-media">
+                                            <a href="/prefabs/forest-time/garden-single.html" title="">
+                                                <img src="images/img_4.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <div class="hovereffect"></div>
+                                            </a>
+                                        </div><!-- end media -->
+                                    </div><!-- end col -->
+
+                                    <div class="blog-meta big-meta col-md-8">
+                                        <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-category.html" title="">Indoor</a></span>
+                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-single.html" title="">The best twenty plant species you can look at at home</a></h4>
+                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <small><a href="/prefabs/forest-time/garden-category.html" title=""><i class="fa fa-eye"></i> 1887</a></small>
+                                        <small><a href="/prefabs/forest-time/garden-single.html" title="">11 July, 2017</a></small>
+                                        <small><a href="/prefabs/forest-time/#" title="">by Matilda</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end blog-box -->
+
+                                <hr class="invis">
+
+                                <div class="blog-box row">
+                                    <div class="col-md-4">
+                                        <div class="post-media">
+                                            <a href="/prefabs/forest-time/garden-single.html" title="">
+                                                <img src="images/img_5.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <div class="hovereffect"></div>
+                                            </a>
+                                        </div><!-- end media -->
+                                    </div><!-- end col -->
+
+                                    <div class="blog-meta big-meta col-md-8">
+                                        <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-category.html" title="">Indoor</a></span>
+                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-single.html" title="">How do you like the idea of creating a garden from the Amazon forests?</a></h4>
+                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <small><a href="/prefabs/forest-time/garden-category.html" title=""><i class="fa fa-eye"></i> 4441</a></small>
+                                        <small><a href="/prefabs/forest-time/garden-single.html" title="">10 July, 2017</a></small>
+                                        <small><a href="/prefabs/forest-time/#" title="">by Matilda</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end blog-box -->
+
+                                <hr class="invis">
+
+                                <div class="blog-box row">
+                                    <div class="col-md-4">
+                                        <div class="post-media">
+                                            <a href="/prefabs/forest-time/garden-single.html" title="">
+                                                <img src="images/img_6.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <div class="hovereffect"></div>
+                                            </a>
+                                        </div><!-- end media -->
+                                    </div><!-- end col -->
+
+                                    <div class="blog-meta big-meta col-md-8">
+                                        <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-category.html" title="">Indoor</a></span>
+                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-single.html" title="">Top 20 cafeterias decorated with quality plants</a></h4>
+                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <small><a href="/prefabs/forest-time/garden-category.html" title=""><i class="fa fa-eye"></i> 1234</a></small>
+                                        <small><a href="/prefabs/forest-time/garden-single.html" title="">09 July, 2017</a></small>
+                                        <small><a href="/prefabs/forest-time/#" title="">by Matilda</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end blog-box -->
+
+                                <hr class="invis">
+
+                                <div class="row">
+                                    <div class="col-lg-10 offset-lg-1">
+                                        <div class="banner-spot clearfix">
+                                            <div class="banner-img">
+                                                <img src="images/img_7.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                            </div><!-- end banner-img -->
+                                        </div><!-- end banner -->
+                                    </div><!-- end col -->
+                                </div><!-- end row -->
+
+                                <hr class="invis">
+
+                                <div class="blog-box row">
+                                    <div class="col-md-4">
+                                        <div class="post-media">
+                                            <a href="/prefabs/forest-time/garden-single.html" title="">
+                                                <img src="images/img_8.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <div class="hovereffect"></div>
+                                            </a>
+                                        </div><!-- end media -->
+                                    </div><!-- end col -->
+
+                                    <div class="blog-meta big-meta col-md-8">
+                                        <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-category.html" title="">Indoor</a></span>
+                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-single.html" title="">30 beautiful flowers you can look at in offices and workplaces</a></h4>
+                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <small><a href="/prefabs/forest-time/garden-category.html" title=""><i class="fa fa-eye"></i> 4441</a></small>
+                                        <small><a href="/prefabs/forest-time/garden-single.html" title="">08 July, 2017</a></small>
+                                        <small><a href="/prefabs/forest-time/#" title="">by Matilda</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end blog-box -->
+
+                                <hr class="invis">
+
+                                <div class="blog-box row">
+                                    <div class="col-md-4">
+                                        <div class="post-media">
+                                            <a href="/prefabs/forest-time/garden-single.html" title="">
+                                                <img src="images/img_9.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <div class="hovereffect"></div>
+                                            </a>
+                                        </div><!-- end media -->
+                                    </div><!-- end col -->
+
+                                    <div class="blog-meta big-meta col-md-8">
+                                        <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-category.html" title="">Indoor</a></span>
+                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-single.html" title="">Enjoy your living room with small garden biblings</a></h4>
+                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <small><a href="/prefabs/forest-time/garden-category.html" title=""><i class="fa fa-eye"></i> 2235</a></small>
+                                        <small><a href="/prefabs/forest-time/garden-single.html" title="">07 July, 2017</a></small>
+                                        <small><a href="/prefabs/forest-time/#" title="">by Matilda</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end blog-box -->
+
+                                <hr class="invis">
+
+                                <div class="blog-box row">
+                                    <div class="col-md-4">
+                                        <div class="post-media">
+                                            <a href="/prefabs/forest-time/garden-single.html" title="">
+                                                <img src="images/img_10.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <div class="hovereffect"></div>
+                                            </a>
+                                        </div><!-- end media -->
+                                    </div><!-- end col -->
+
+                                    <div class="blog-meta big-meta col-md-8">
+                                        <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-category.html" title="">Indoor</a></span>
+                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-single.html" title="">Why do you prefer small flowers at your workplace?</a></h4>
+                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <small><a href="/prefabs/forest-time/garden-category.html" title=""><i class="fa fa-eye"></i> 1567</a></small>
+                                        <small><a href="/prefabs/forest-time/garden-single.html" title="">06 July, 2017</a></small>
+                                        <small><a href="/prefabs/forest-time/#" title="">by Matilda</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end blog-box -->
+
+                                <hr class="invis">
+
+                                <div class="blog-box row">
+                                    <div class="col-md-4">
+                                        <div class="post-media">
+                                            <a href="/prefabs/forest-time/garden-single.html" title="">
+                                                <img src="images/img_11.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <div class="hovereffect"></div>
+                                            </a>
+                                        </div><!-- end media -->
+                                    </div><!-- end col -->
+
+                                    <div class="blog-meta big-meta col-md-8">
+                                        <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-category.html" title="">Indoor</a></span>
+                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-single.html" title="">10 special plant species available to live in the window</a></h4>
+                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <small><a href="/prefabs/forest-time/garden-category.html" title=""><i class="fa fa-eye"></i> 1451</a></small>
+                                        <small><a href="/prefabs/forest-time/garden-single.html" title="">05 July, 2017</a></small>
+                                        <small><a href="/prefabs/forest-time/#" title="">by Matilda</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end blog-box -->
+
+                                <hr class="invis">
+
+                                <div class="blog-box row">
+                                    <div class="col-md-4">
+                                        <div class="post-media">
+                                            <a href="/prefabs/forest-time/garden-single.html" title="">
+                                                <img src="images/img_12.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <div class="hovereffect"></div>
+                                            </a>
+                                        </div><!-- end media -->
+                                    </div><!-- end col -->
+
+                                    <div class="blog-meta big-meta col-md-8">
+                                        <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-category.html" title="">Indoor</a></span>
+                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-single.html" title="">Selection of high quality soil for vegetable gardening</a></h4>
+                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <small><a href="/prefabs/forest-time/garden-category.html" title=""><i class="fa fa-eye"></i> 4442</a></small>
+                                        <small><a href="/prefabs/forest-time/garden-single.html" title="">01 July, 2017</a></small>
+                                        <small><a href="/prefabs/forest-time/#" title="">by Matilda</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end blog-box -->
+                            </div><!-- end blog-list -->
+                        </div><!-- end page-wrapper -->
+
+                        <hr class="invis">
+
+                        
+                    </div><!-- end col -->
+
+                    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sidebar">
+                            <div class="widget">
+                                <h2 class="widget-title">Recent Posts</h2>
+                                <div class="blog-list-widget">
+                                    <div class="list-group">
+                                        <a href="/prefabs/forest-time/garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="w-100 justify-content-between">
+                                                <img src="images/img_13.1782648457049.jpg" alt="" class="img-fluid float-left" style="cursor: pointer;">
+                                                <h5 class="mb-1">5 Beautiful buildings you need to before dying</h5>
+                                                <small>12 Jan, 2016</small>
+                                            </div>
+                                        </a>
+
+                                        <a href="/prefabs/forest-time/garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="w-100 justify-content-between">
+                                                <img src="images/img_14.1782648457049.jpg" alt="" class="img-fluid float-left" style="cursor: pointer;">
+                                                <h5 class="mb-1">Let's make an introduction for creative life</h5>
+                                                <small>11 Jan, 2016</small>
+                                            </div>
+                                        </a>
+
+                                        <a href="/prefabs/forest-time/garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="w-100 last-item justify-content-between">
+                                                <img src="images/img_15.1782648457049.jpg" alt="" class="img-fluid float-left" style="cursor: pointer;">
+                                                <h5 class="mb-1">Did you see the most beautiful sea in the world?</h5>
+                                                <small>07 Jan, 2016</small>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div><!-- end blog-list -->
+                            </div><!-- end widget -->
+
+                            <div class="widget">
+                                <h2 class="widget-title">Advertising</h2>
+                                <div class="banner-spot clearfix">
+                                    <div class="banner-img">
+                                        <img src="images/img_16.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                    </div><!-- end banner-img -->
+                                </div><!-- end banner -->
+                            </div><!-- end widget -->
+
+                            <div class="widget">
+                                <h2 class="widget-title">Instagram Feed</h2>
+                                <div class="instagram-wrapper clearfix">
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_17.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_18.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_19.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_20.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_21.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_22.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_23.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_24.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_25.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                </div><!-- end Instagram wrapper -->
+                            </div><!-- end widget -->
+
+                            
+                        </div><!-- end sidebar -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <div class="widget">
+                            <div class="footer-text text-center">
+                                <img style="background-color: rgb(255, 255, 255); border-radius: 1rem; cursor: pointer;" id="footerLogo" src="images/img_26.1782648457049.jpg" alt="" class="img-fluid">
+                                <p data-text-edit-listener="true" class="" style="cursor: pointer;">Add text here</p>
+                                <div class="social">
+                                    <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>              
+                                    <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                    <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
+                                    <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Google Plus"><i class="fa fa-google-plus"></i></a>
+                                    <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                                </div>
+
+                                <hr class="invis">
+
+                                <div class="newsletter-widget text-center">
+                                    <form class="form-inline">
+                                        <input type="text" class="form-control" placeholder="Enter your email address">
+                                        <button type="submit" class="btn btn-primary" data-button-edit-listener="true" style="cursor: pointer;">Subscribe <i class="fa fa-envelope-open-o"></i></button>
+                                    </form>
+                                </div><!-- end newsletter -->
+                            </div><!-- end footer-text -->
+                        </div><!-- end widget -->
+                    </div><!-- end col -->
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <br>
+                        <br>
+                        <div class="copyright">© IdeaGo.ie</div>
+                    </div>
+                </div>
+            </div><!-- end container -->
+        </footer><!-- end footer -->
+        
+    <!-- end wrapper -->
+
+    <!-- Core JavaScript
+    ================================================== -->
+    <script src="/prefabs/forest-time/js/jquery.min.js"></script>
+    <script src="/prefabs/forest-time/js/tether.min.js"></script>
+    <script src="/prefabs/forest-time/js/bootstrap.min.js"></script>
+    <script src="/prefabs/forest-time/js/custom.js"></script>
 
 
 <script src="js/clerk.browser.js"></script>
 <script src="js/stripe.js"></script>
+<script src="js/bootstrap.min.1782648457049.js"></script>
+<script src="js/tether.min.1782648457049.js"></script>
+<script src="js/custom.1782648457049.js"></script>
+<script src="js/jquery.min.1782648457049.js"></script>
 <script src="js/domain-widget.js"></script>
-<script src="js/inline_1.1782647497474.js"></script>
-<script src="js/inline_2.1782647497474.js"></script>
-<script src="js/inline_3.1782647497474.js"></script>
-<script src="js/inline_4.1782647497474.js"></script>
+<script src="js/bootstrap.min.1782648457049.js"></script>
+<script src="js/custom.1782648457049.js"></script>
+<script src="js/jquery.min.1782648457049.js"></script>
+<script src="js/tether.min.1782648457049.js"></script>
+<script src="js/inline_1.1782648457049.js"></script>
+<script src="js/inline_2.1782648457049.js"></script>
 
 </body>
 </html>
