@@ -9,65 +9,22 @@
 <link href="/prefabs/forest-time/css/colors.css" rel="stylesheet">
 <link href="/prefabs/forest-time/css/version/garden.css" rel="stylesheet">
 <style>.bg-aqua{display: none;}.blog-list-widget small{display: none;}</style>
-<style>
-    #logoEditor {
-        display:none;
-        position:absolute;
-        background:#fff;
-        padding:15px;
-        border:1px solid #ccc;
-        z-index:9999;
-        width:220px;
-    }
-    #logoEditor input, #logoEditor select {
-        width:100%;
-        padding:6px;
-        margin-top:4px;
-    }
-    #logoEditor button {
-        margin-top:10px;
-        width:100%;
-        padding:8px;
-        border:none;
-        cursor:pointer;
-    }
-    #saveLogo {
-        background:#4CAF50;
-        color:#fff;
-    }
-    #cancelLogo {
-        background:#ccc;
-        color:#000;
-    }
-
-    .error {
-        border:2px solid red !important;
-    }
-
-    .warning {
-        font-size:12px;
-        color:red;
-        margin-top:2px;
-        display:none;
-    }
-</style>
 <link rel="stylesheet" href="css/css">
 <link rel="stylesheet" href="css/css">
-<link rel="stylesheet" href="css/garden.1782648457049.css">
-<link rel="stylesheet" href="css/font-awesome.min.1782648457049.css">
-<link rel="stylesheet" href="css/colors.1782648457049.css">
-<link rel="stylesheet" href="css/bootstrap.1782648457049.css">
-<link rel="stylesheet" href="css/responsive.1782648457049.css">
-<link rel="stylesheet" href="css/style.1782648457049.css">
-<link rel="stylesheet" href="css/colors.1782648457049.css">
-<link rel="stylesheet" href="css/garden.1782648457049.css">
-<link rel="stylesheet" href="css/responsive.1782648457049.css">
-<link rel="stylesheet" href="css/bootstrap.1782648457049.css">
-<link rel="stylesheet" href="css/font-awesome.min.1782648457049.css">
-<link rel="stylesheet" href="css/style.1782648457049.css">
-<link rel="stylesheet" href="css/inline_1.1782648457049.css">
-<link rel="stylesheet" href="css/inline_2.1782648457049.css">
-<link rel="stylesheet" href="css/inline_3.1782648457049.css">
+<link rel="stylesheet" href="css/style.1782660374620.css">
+<link rel="stylesheet" href="css/bootstrap.1782660374620.css">
+<link rel="stylesheet" href="css/style.1782660374620.css">
+<link rel="stylesheet" href="css/font-awesome.min.1782660374620.css">
+<link rel="stylesheet" href="css/font-awesome.min.1782660374620.css">
+<link rel="stylesheet" href="css/responsive.1782660374620.css">
+<link rel="stylesheet" href="css/garden.1782660374620.css">
+<link rel="stylesheet" href="css/responsive.1782660374620.css">
+<link rel="stylesheet" href="css/garden.1782660374620.css">
+<link rel="stylesheet" href="css/colors.1782660374620.css">
+<link rel="stylesheet" href="css/colors.1782660374620.css">
+<link rel="stylesheet" href="css/bootstrap.1782660374620.css">
+<link rel="stylesheet" href="css/inline_1.1782660374620.css">
+<link rel="stylesheet" href="css/inline_2.1782660374620.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -145,153 +102,22 @@
             </div><!-- end header-logo -->
         </div><!-- end topbar -->
 
-        
-
 <div class="header-section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="logo" id="logoArea" style="cursor:pointer;">
-                    <img id="logoImage" src="images/img_0.1782648457049.jpg" width="300" height="100" alt="">
-                </div>
+                <div class="logo" id="logoArea" style="cursor:pointer;"><img src="images/img_0.1782660374620.jpg" width="300" height="100" alt="Generated Logo"></div>
             </div>
         </div>
     </div>
 </div>
-
-<div id="logoEditor">
-    <label>Business Name</label>
-    <input type="text" id="bizName">
-    <div id="nameWarn" class="warning">Too long</div>
-
-    <label>Slogan</label>
-    <input type="text" id="bizSlogan">
-    <div id="sloganWarn" class="warning">Too long</div>
-
-    <label>Font Style</label>
-    <select id="fontStyle">
-        <option value="Arial">Arial</option>
-        <option value="Verdana">Verdana</option>
-        <option value="Georgia">Georgia</option>
-        <option value="Times New Roman">Times New Roman</option>
-        <option value="Courier New">Courier New</option>
-        <option value="Impact">Impact</option>
-        <option value="Garamond">Garamond</option>
-        <option value="Lucida Console">Lucida Console</option>
-        <option value="Trebuchet MS">Trebuchet MS</option>
-        <option value="Cambria">Cambria</option>
-    </select>
-
-    <button id="saveLogo" data-button-edit-listener="true" style="cursor: pointer;">Save</button>
-    <button id="cancelLogo" data-button-edit-listener="true" style="cursor: pointer;">Cancel</button>
-</div>
-
-<script>
-    const logoArea = document.getElementById("logoArea");
-    const logoEditor = document.getElementById("logoEditor");
-    const saveBtn = document.getElementById("saveLogo");
-    const cancelBtn = document.getElementById("cancelLogo");
-
-    const bizName = document.getElementById("bizName");
-    const bizSlogan = document.getElementById("bizSlogan");
-    const fontSelect = document.getElementById("fontStyle");
-
-    const nameWarn = document.getElementById("nameWarn");
-    const sloganWarn = document.getElementById("sloganWarn");
-
-    const MAX_NAME_CHARS = 18;
-    const MAX_SLOGAN_CHARS = 25;
-
-    logoArea.addEventListener("click", function(e) {
-        logoEditor.style.display = "block";
-        logoEditor.style.left = e.pageX + "px";
-        logoEditor.style.top = e.pageY + "px";
-    });
-
-    cancelBtn.addEventListener("click", function() {
-        logoEditor.style.display = "none";
-    });
-
-    // HARD LIMIT ENFORCEMENT
-    function enforceLimit(input, max, warningBox) {
-        if (input.value.length > max) {
-            input.value = input.value.substring(0, max); // hard stop
-        }
-
-        if (input.value.length >= max) {
-            input.classList.add("error");
-            warningBox.style.display = "block";
-        } else {
-            input.classList.remove("error");
-            warningBox.style.display = "none";
-        }
-    }
-
-    bizName.addEventListener("input", () => {
-        enforceLimit(bizName, MAX_NAME_CHARS, nameWarn);
-    });
-
-    bizSlogan.addEventListener("input", () => {
-        enforceLimit(bizSlogan, MAX_SLOGAN_CHARS, sloganWarn);
-    });
-
-    saveBtn.addEventListener("click", function() {
-
-        if (bizName.value.trim() === "" || bizSlogan.value.trim() === "") {
-            return;
-        }
-
-        const name = bizName.value.toUpperCase();
-        const slogan = bizSlogan.value.toUpperCase();
-        const fontChoice = fontSelect.value;
-
-        const canvas = document.createElement("canvas");
-        canvas.width = 300;
-        canvas.height = 100;
-        const ctx = canvas.getContext("2d");
-
-        ctx.clearRect(0, 0, 300, 100);
-
-        // MAIN TITLE
-        ctx.font = "bold 32px " + fontChoice;
-        ctx.fillStyle = "#000000";
-
-        let nameWidth = ctx.measureText(name).width;
-        let nameX = (300 - nameWidth) / 2;
-        ctx.fillText(name, nameX, 40);
-
-        // TAGLINE
-        ctx.font = "16px " + fontChoice;
-        ctx.fillStyle = "#2E7D32";
-
-        let sloganWidth = ctx.measureText(slogan).width;
-        let sloganX = (300 - sloganWidth) / 2;
-        ctx.fillText(slogan, sloganX, 75);
-
-        const pngURL = canvas.toDataURL("image/png");
-
-        document.getElementById("logoArea").innerHTML =
-            `<img src="${pngURL}" width="300" height="100" alt="Generated Logo">`;
-
-        const footerLogo = document.getElementById("footerLogo");
-        if (footerLogo) {
-            footerLogo.src = pngURL;
-            footerLogo.width = 300;
-            footerLogo.height = 100;
-        }
-
-        logoEditor.style.display = "none";
-    });
-</script>
-
-
 
         <section class="section first-section">
             <div class="container-fluid">
                 <div class="masonry-blog clearfix">
                     <div class="left-side">
                         <div class="masonry-box post-media">
-                             <img src="images/img_1.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                             <img src="images/img_1.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;">
                              <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
@@ -307,7 +133,7 @@
 
                     <div class="center-side">
                         <div class="masonry-box post-media">
-                             <img src="images/img_2.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                             <img src="images/img_2.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;">
                              <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
@@ -323,7 +149,7 @@
 
                     <div class="right-side">
                         <div class="masonry-box post-media">
-                             <img src="images/img_3.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                             <img src="images/img_3.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;">
                              <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
@@ -350,7 +176,7 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="/prefabs/forest-time/garden-single.html" title="">
-                                                <img src="images/img_4.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <img src="images/img_4.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;">
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
@@ -359,7 +185,7 @@
                                     <div class="blog-meta big-meta col-md-8">
                                         <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-category.html" title="">Indoor</a></span>
                                         <h4 data-text-edit-listener="true" class="" style="cursor: pointer;"><a href="/prefabs/forest-time/garden-single.html" title="">The best twenty plant species you can look at at home</a></h4>
-                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">hahahahahahahahahaahhhahahaaaa</p>
                                         <small><a href="/prefabs/forest-time/garden-category.html" title=""><i class="fa fa-eye"></i> 1887</a></small>
                                         <small><a href="/prefabs/forest-time/garden-single.html" title="">11 July, 2017</a></small>
                                         <small><a href="/prefabs/forest-time/#" title="">by Matilda</a></small>
@@ -372,7 +198,7 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="/prefabs/forest-time/garden-single.html" title="">
-                                                <img src="images/img_5.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <img src="images/img_5.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;">
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
@@ -394,7 +220,7 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="/prefabs/forest-time/garden-single.html" title="">
-                                                <img src="images/img_6.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <img src="images/img_6.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;">
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
@@ -412,23 +238,11 @@
 
                                 <hr class="invis">
 
-                                <div class="row">
-                                    <div class="col-lg-10 offset-lg-1">
-                                        <div class="banner-spot clearfix">
-                                            <div class="banner-img">
-                                                <img src="images/img_7.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                            </div><!-- end banner-img -->
-                                        </div><!-- end banner -->
-                                    </div><!-- end col -->
-                                </div><!-- end row -->
-
-                                <hr class="invis">
-
                                 <div class="blog-box row">
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="/prefabs/forest-time/garden-single.html" title="">
-                                                <img src="images/img_8.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <img src="images/img_7.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;">
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
@@ -450,7 +264,7 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="/prefabs/forest-time/garden-single.html" title="">
-                                                <img src="images/img_9.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <img src="images/img_8.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;">
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
@@ -472,7 +286,7 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="/prefabs/forest-time/garden-single.html" title="">
-                                                <img src="images/img_10.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <img src="images/img_9.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;">
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
@@ -494,7 +308,7 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="/prefabs/forest-time/garden-single.html" title="">
-                                                <img src="images/img_11.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <img src="images/img_10.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;">
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
@@ -516,7 +330,7 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="/prefabs/forest-time/garden-single.html" title="">
-                                                <img src="images/img_12.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                                <img src="images/img_11.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;">
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
@@ -547,7 +361,7 @@
                                     <div class="list-group">
                                         <a href="/prefabs/forest-time/garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="images/img_13.1782648457049.jpg" alt="" class="img-fluid float-left" style="cursor: pointer;">
+                                                <img src="images/img_12.1782660374620.jpg" alt="" class="img-fluid float-left" style="cursor: pointer;">
                                                 <h5 class="mb-1">5 Beautiful buildings you need to before dying</h5>
                                                 <small>12 Jan, 2016</small>
                                             </div>
@@ -555,7 +369,7 @@
 
                                         <a href="/prefabs/forest-time/garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="images/img_14.1782648457049.jpg" alt="" class="img-fluid float-left" style="cursor: pointer;">
+                                                <img src="images/img_13.1782660374620.jpg" alt="" class="img-fluid float-left" style="cursor: pointer;">
                                                 <h5 class="mb-1">Let's make an introduction for creative life</h5>
                                                 <small>11 Jan, 2016</small>
                                             </div>
@@ -563,7 +377,7 @@
 
                                         <a href="/prefabs/forest-time/garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 last-item justify-content-between">
-                                                <img src="images/img_15.1782648457049.jpg" alt="" class="img-fluid float-left" style="cursor: pointer;">
+                                                <img src="images/img_14.1782660374620.jpg" alt="" class="img-fluid float-left" style="cursor: pointer;">
                                                 <h5 class="mb-1">Did you see the most beautiful sea in the world?</h5>
                                                 <small>07 Jan, 2016</small>
                                             </div>
@@ -576,7 +390,7 @@
                                 <h2 class="widget-title">Advertising</h2>
                                 <div class="banner-spot clearfix">
                                     <div class="banner-img">
-                                        <img src="images/img_16.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;">
+                                        <img src="images/img_15.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;">
                                     </div><!-- end banner-img -->
                                 </div><!-- end banner -->
                             </div><!-- end widget -->
@@ -584,15 +398,15 @@
                             <div class="widget">
                                 <h2 class="widget-title">Instagram Feed</h2>
                                 <div class="instagram-wrapper clearfix">
-                                    <a href="/prefabs/forest-time/#"><img src="images/img_17.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
-                                    <a href="/prefabs/forest-time/#"><img src="images/img_18.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
-                                    <a href="/prefabs/forest-time/#"><img src="images/img_19.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
-                                    <a href="/prefabs/forest-time/#"><img src="images/img_20.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
-                                    <a href="/prefabs/forest-time/#"><img src="images/img_21.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
-                                    <a href="/prefabs/forest-time/#"><img src="images/img_22.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
-                                    <a href="/prefabs/forest-time/#"><img src="images/img_23.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
-                                    <a href="/prefabs/forest-time/#"><img src="images/img_24.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
-                                    <a href="/prefabs/forest-time/#"><img src="images/img_25.1782648457049.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_16.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_17.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_18.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_19.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_20.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_21.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_22.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_23.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
+                                    <a href="/prefabs/forest-time/#"><img src="images/img_24.1782660374620.jpg" alt="" class="img-fluid" style="cursor: pointer;"></a>
                                 </div><!-- end Instagram wrapper -->
                             </div><!-- end widget -->
 
@@ -609,7 +423,7 @@
                     <div class="col-lg-8 offset-lg-2">
                         <div class="widget">
                             <div class="footer-text text-center">
-                                <img style="background-color: rgb(255, 255, 255); border-radius: 1rem; cursor: pointer;" id="footerLogo" src="images/img_26.1782648457049.jpg" alt="" class="img-fluid">
+                                <img style="background-color: rgb(255, 255, 255); border-radius: 1rem; cursor: pointer;" id="footerLogo" src="images/img_25.1782660374620.jpg" alt="" class="img-fluid" width="300" height="100">
                                 <p data-text-edit-listener="true" class="" style="cursor: pointer;">Add text here</p>
                                 <div class="social">
                                     <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>              
@@ -652,19 +466,19 @@
     <script src="/prefabs/forest-time/js/custom.js"></script>
 
 
+
 <script src="js/clerk.browser.js"></script>
-<script src="js/stripe.js"></script>
-<script src="js/bootstrap.min.1782648457049.js"></script>
-<script src="js/tether.min.1782648457049.js"></script>
-<script src="js/custom.1782648457049.js"></script>
-<script src="js/jquery.min.1782648457049.js"></script>
+<script src="js/custom.1782660374620.js"></script>
+<script src="js/jquery.min.1782660374620.js"></script>
+<script src="js/tether.min.1782660374620.js"></script>
 <script src="js/domain-widget.js"></script>
-<script src="js/bootstrap.min.1782648457049.js"></script>
-<script src="js/custom.1782648457049.js"></script>
-<script src="js/jquery.min.1782648457049.js"></script>
-<script src="js/tether.min.1782648457049.js"></script>
-<script src="js/inline_1.1782648457049.js"></script>
-<script src="js/inline_2.1782648457049.js"></script>
+<script src="js/bootstrap.min.1782660374620.js"></script>
+<script src="js/custom.1782660374620.js"></script>
+<script src="js/tether.min.1782660374620.js"></script>
+<script src="js/jquery.min.1782660374620.js"></script>
+<script src="js/bootstrap.min.1782660374620.js"></script>
+<script src="js/stripe.js"></script>
+<script src="js/inline_1.1782660374620.js"></script>
 
 </body>
 </html>
