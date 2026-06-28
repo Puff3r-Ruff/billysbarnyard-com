@@ -1185,12 +1185,14 @@ hr.invis3 {
     zoom: 1;
     filter: alpha(opacity=100);
     opacity: 1;
+    pointer-events: none;
 }
 
 .shadow-desc {
     position: absolute;
     bottom: 0;
     padding: 1rem 1.5rem;
+    pointer-events: fill;
 }
 
 .shadow-desc .blog-meta small::after,
@@ -1228,6 +1230,7 @@ hr.invis3 {
     background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.1) 50%);
     background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.1) 50%);
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000', GradientType=1);
+    pointer-events: none;
 }
 
 .post-media:hover .hovereffect span::before,
