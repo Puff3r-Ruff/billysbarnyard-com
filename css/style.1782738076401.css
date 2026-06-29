@@ -1185,12 +1185,14 @@ hr.invis3 {
     zoom: 1;
     filter: alpha(opacity=100);
     opacity: 1;
+    pointer-events: none;
 }
 
 .shadow-desc {
     position: absolute;
     bottom: 0;
     padding: 1rem 1.5rem;
+    pointer-events: fill;
 }
 
 .shadow-desc .blog-meta small::after,
@@ -1228,6 +1230,7 @@ hr.invis3 {
     background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.1) 50%);
     background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.1) 50%);
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000', GradientType=1);
+    pointer-events: none;
 }
 
 .post-media:hover .hovereffect span::before,
@@ -1675,39 +1678,215 @@ hr.invis3 {
     border-radius: 50%
 }
 /**************************************
-    MERGED STYLE.CSS (BASE + RESPONSIVE + COLORS + GARDEN)
-    Final Theme: GARDEN
+
+    File Name: responsive.css
+    Template Name: Forest Time
+    Created By: HTML.Design
+    http://themeforest.net/user/wpdestek
+
 **************************************/
 
-/* =========================================================
-   1. BASE STYLES  (from original style.css)
-   ========================================================= */
 
-body {
-    font-size: 15px;
-    line-height: 26px;
-    background-color: #ffffff;
-}
-
-/* … (all original style.css rules preserved here) … */
-
-/* =========================================================
-   2. RESPONSIVE STYLES  (from responsive.css)
-   ========================================================= */
+/* RESPONSIVE 
+**************************************/
 
 @media (max-width: 1156px) {
-    .small-box .shadow-desc h4 { font-size: 14px; }
+    .small-box .shadow-desc h4 {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 1047px) {
-    .topbar-section .list-inline-item { padding: 0 0.2rem !important; }
+    .topbar-section .list-inline-item {
+        padding: 0 0.2rem !important;
+    }
 }
 
-/* … (all responsive.css rules preserved here) … */
+@media (max-width: 989px) {
+    .search-form .btn:hover,
+    .search-form .btn:focus,
+    .search-form .btn {
+        position: relative;
+    }
+    .custombox .blog-list-widget,
+    .custombox .blog-box {
+        margin: 1rem 0;
+    }
+    .sidebar,
+    .footer .widget {
+        margin: 1.5rem 0;
+    }
+    .center-side,
+    .left-side,
+    .right-side {
+        float: left;
+        width: 50%;
+    }
+}
 
-/* =========================================================
-   3. COLOR SYSTEM  (from colors.css)
-   ========================================================= */
+@media (max-width: 768px) {
+    .post-sharing .btn {
+        padding: 0.6rem !important;
+    }
+    .blog-custom-build .down-mobile,
+    .blog-title-area .down-mobile {
+        display: none !important;
+    }
+    .newsletter-widget .form-inline .form-control {
+        width: 100%;
+    }
+    .newsletter-widget .btn {
+        display: block;
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+    .blog-list .blog-meta.big-meta h4 {
+        background-color: #ffffff;
+        margin-left: 0;
+        margin-top: 1rem;
+        padding: 1rem 0;
+    }
+}
+
+@media (max-width: 728px) {
+    .center-side,
+    .left-side,
+    .right-side {
+        float: left;
+        width: 100%;
+    }
+    .shadow-desc {
+        bottom: 0;
+        padding: 1rem 0.8rem;
+        position: absolute;
+    }
+    .blog-meta h4 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 590px) {
+    .comment-list .media {
+        float: none !important;
+        width: 100%;
+        display: block;
+    }
+    .blog-title-area {
+        text-align: center;
+    }
+    .pp .float-right,
+    .pp .float-left {
+        width: 100%;
+        margin: 1rem 0;
+    }
+    .blog-title-area h3 {
+        font-size: 34px;
+    }
+    .section-title {
+        margin-top: 1rem;
+    }
+    .footer-text img,
+    .small-box {
+        float: none;
+        width: 100%;
+    }
+    .topbar-section .text-right {
+        text-align: center !important;
+    }
+    .blog-meta.big-meta h4 {
+        font-size: 21px;
+    }
+    .top-search .newsletter-widget .form-inline .form-control {
+        font-size: 16px;
+    }
+    .card-block {
+        padding: 1rem 0.5rem;
+    }
+    .newsletter-widget .btn:hover,
+    .newsletter-widget .btn:focus,
+    .newsletter-widget .btn {
+        border: 0 none !important;
+        font-size: 17px !important;
+        padding: 1.3rem 1rem !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .header .dropdown-menu {
+        margin-top: 13px;
+    }
+    .header .navbar-nav .has-submenu {
+        position: relative;
+    }
+    .header .navbar-nav .has-submenu:hover > ul {
+        visibility: visible;
+        opacity: 1;
+        top: 100%;
+    }
+    .header .navbar-nav .has-submenu:hover > ul li ul {
+        margin-top: -1px;
+    }
+    .header .navbar-nav .has-submenu ul {
+        -webkit-transition: visibility 0.35s ease-in-out, opacity 0.35s ease-in-out, top 0.35s ease-in-out, bottom 0.35s ease-in-out, left 0.35s ease-in-out, right 0.35s ease-in-out;
+        -moz-transition: visibility 0.35s ease-in-out, opacity 0.35s ease-in-out, top 0.35s ease-in-out, bottom 0.35s ease-in-out, left 0.35s ease-in-out, right 0.35s ease-in-out;
+        -o-transition: visibility 0.35s ease-in-out, opacity 0.35s ease-in-out, top 0.35s ease-in-out, bottom 0.35s ease-in-out, left 0.35s ease-in-out, right 0.35s ease-in-out;
+        transition: visibility 0.35s ease-in-out, opacity 0.35s ease-in-out, top 0.35s ease-in-out, bottom 0.35s ease-in-out, left 0.35s ease-in-out, right 0.35s ease-in-out;
+    }
+    .header .navbar-nav .has-submenu .dropdown-menu {
+        min-width: 220px;
+        padding: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+    }
+    .header .navbar-nav .has-submenu > ul {
+        position: absolute;
+        top: 130%;
+        visibility: hidden;
+        display: block;
+        opacity: 0;
+        left: 0;
+    }
+    .header .navbar-nav .has-submenu > ul.start-right {
+        right: 0;
+        left: auto;
+    }
+    .header .navbar-nav .has-submenu > ul li {
+        position: relative;
+    }
+    .header .navbar-nav .has-submenu > ul li:hover > ul {
+        visibility: visible;
+        opacity: 1;
+        left: 100%;
+    }
+    .header .navbar-nav .has-submenu > ul li:hover > ul.show-right {
+        right: 100%;
+    }
+    .header .navbar-nav .has-submenu > ul li ul {
+        position: absolute;
+        top: 0;
+        visibility: hidden;
+        display: block;
+        opacity: 0;
+        left: 130%;
+    }
+    .header .navbar-nav .has-submenu > ul li ul.show-right {
+        right: 130%;
+        left: auto;
+    }
+}
+/**************************************
+
+    File Name: colors.css
+    Template Name: Forest Time
+    Created By: HTML.Design
+    http://themeforest.net/user/wpdestek
+
+**************************************/
+
+
+/* COLORS 
+**************************************/
 
 .authorbox p a,
 .pp a,
@@ -1725,13 +1904,159 @@ a:focus,
     color: #3197d6 !important;
 }
 
-/* … (all colors.css rules preserved here) … */
+.dmtop,
+.search-form .btn:hover,
+.search-form .btn:focus,
+.search-form .btn {
+    color: #ffffff !important;
+    background-color: #3197d6 !important;
+}
 
-/* =========================================================
-   4. GARDEN THEME OVERRIDES  (from garden.css)
-   =========================================================
-   These rules override EVERYTHING above.
-   ========================================================= */
+.tag-cloud-single span,
+.page-title i,
+.btn:hover,
+.sitemap-wrapper .year,
+.btn:focus,
+.navbar-inverse .navbar-toggler {
+    color: #ffffff !important;
+    background-color: #3197d6;
+}
+
+.blockquote {
+    border-left-color: #3197d6;
+}
+
+.footer .widget-title {
+    border-color: #3197d6;
+}
+
+
+/* OTHER COLORS 
+**************************************/
+
+.navbar-nav .nav-link.active.color-pink-hover,
+.navbar-nav .nav-link.color-pink-hover:hover,
+.navbar-nav .nav-link.color-pink-hover:focus {
+    color: #deacca !important;
+}
+
+.page-title .bg-pink,
+.portfolio .blog-meta span.bg-pink,
+.masonry-box:hover .blog-meta span.bg-pink,
+.color-pink a {
+    background-color: #deacca !important;
+}
+
+.navbar-nav .nav-link.active.color-aqua-hover,
+.navbar-nav .nav-link.color-aqua-hover:hover,
+.navbar-nav .nav-link.color-aqua-hover:focus {
+    color: #2ad2c9 !important;
+}
+
+.page-title .bg-aqua,
+.masonry-box:hover .blog-meta span.bg-aqua,
+.color-aqua a {
+    background-color: #2ad2c9 !important;
+}
+
+.navbar-nav .nav-link.active.color-green-hover,
+.navbar-nav .nav-link.color-green-hover:hover,
+.navbar-nav .nav-link.color-green-hover:focus {
+    color: #34bf49 !important;
+}
+
+.page-title .bg-green,
+.masonry-box:hover .blog-meta span.bg-green,
+.color-green a {
+    background-color: #34bf49 !important;
+}
+
+.navbar-nav .nav-link.active.color-red-hover,
+.navbar-nav .nav-link.color-red-hover:hover,
+.navbar-nav .nav-link.color-red-hover:focus {
+    color: #ed1b2e !important;
+}
+
+.page-title .bg-red,
+.masonry-box:hover .blog-meta span.bg-red,
+.color-red a {
+    background-color: #ed1b2e !important;
+}
+
+.navbar-nav .nav-link.active.color-yellow-hover,
+.navbar-nav .nav-link.color-yellow-hover:hover,
+.navbar-nav .nav-link.color-yellow-hover:focus {
+    color: #ffb900 !important;
+}
+
+.page-title .bg-yellow,
+.masonry-box:hover .blog-meta span.bg-yellow,
+.color-yellow a {
+    background-color: #ffb900 !important;
+}
+
+.navbar-nav .nav-link.active.color-grey-hover,
+.navbar-nav .nav-link.color-grey-hover:hover,
+.navbar-nav .nav-link.color-grey-hover:focus {
+    color: #6f1683 !important;
+}
+
+.portfolio .blog-meta span.bg-grey,
+.page-title .bg-grey,
+.masonry-box:hover .blog-meta span.bg-grey,
+.color-grey a {
+    background-color: #6f1683 !important;
+}
+
+.fa-star-o,
+.fa-star {
+    color: #fbb034;
+}
+
+.topsocial .fa.fa-facebook {
+    color: #4b6ea9;
+}
+
+.topsocial .fa.fa-google-plus {
+    color: #e86142;
+}
+
+.topsocial .fa.fa-twitter {
+    color: #1ab2f5;
+}
+
+.topsocial .fa.fa-linkedin {
+    color: #0088c0;
+}
+
+.fa-bolt,
+.topsocial .fa.fa-pinterest {
+    color: #d73533;
+}
+
+.topsocial .fa.fa-youtube {
+    color: #d44638;
+}
+
+.topsocial .fa.fa-instagram {
+    color: #405de6;
+}
+
+.topsocial .fa.fa-flickr {
+    color: #ff0084;
+}
+
+.footer.wb .btn {
+    color: rgba(255, 255, 255, 1) !important;
+}
+/**************************************
+
+    File Name: garden.css
+    Template Name: Forest Time
+    Created By: HTML.Design
+    http://themeforest.net/user/wpdestek
+
+**************************************/
 
 h1,
 h2,
@@ -1747,7 +2072,9 @@ p,
     font-family: 'Droid Sans', serif;
 }
 
-.topbar-section { border: 0; }
+.topbar-section {
+	border:0;
+}
 
 .blog-list .blog-meta.big-meta h4 {
     margin-left: 0;
@@ -1755,17 +2082,24 @@ p,
     padding: 1rem 0;
 }
 
-.footer { background-image: none; }
+.footer {
+	background-image: none;
+}
 
-.blog-list-widget .mb-1 { font-weight: bold; }
+.blog-list-widget .mb-1 {
+	font-weight: bold;
+}
 
-.newsletter-widget .form-inline .form-control { height: 54px; }
+.newsletter-widget .form-inline .form-control {
+	height: 54px;
+}
 
-.dropdown-menu { border: 0; }
+.dropdown-menu {
+	border:0;
+}
 
-.navbar-inverse .navbar-nav .nav-link,
-.navbar-nav .nav-link {
-    font-weight: 400;
+.navbar-inverse .navbar-nav .nav-link, .navbar-nav .nav-link {
+	font-weight: 400;
 }
 
 .blog-meta span {
@@ -1782,16 +2116,29 @@ p,
     z-index: 1;
 }
 
-#map img { max-width: inherit; }
+#map img {
+    max-width: inherit;
+}
 
-.loader { margin-left: 10px; }
+.loader {
+    margin-left: 10px;
+}
 
-.map { position: relative; }
-.map .row { position: relative; }
+.map {
+    position: relative;
+}
 
-.infobox img { width: 100% !important; }
+.map .row {
+    position: relative;
+}
 
-.map .searchmodule { padding: 18px 10px; }
+.infobox img {
+    width: 100% !important;
+}
+
+.map .searchmodule {
+    padding: 18px 10px;
+}
 
 .infobox {
     display: block;
@@ -1811,8 +2158,6 @@ p,
     text-transform: capitalize;
 }
 
-/* Garden color overrides — FINAL ACTIVE COLORS */
-
 .header .dropdown-item:hover,
 .header .dropdown-item:focus,
 .blog-meta span,
@@ -1825,21 +2170,19 @@ p,
 .topbar-section a:focus,
 .topbar-section a,
 .topbar-section i {
-    color: #ffffff !important;
+	color:#ffffff !important; 
 }
 
-.footer { background-color: #000000 !important; }
+.footer {
+	background-color: #000000 !important;
+}
 
 .small-title,
-.page-title .bg-green,
-.masonry-box:hover .blog-meta span.bg-green,
-.color-green a,
+.page-title .bg-green, .masonry-box:hover .blog-meta span.bg-green, .color-green a,
 .navbar-toggler,
 .masonry-box:hover .blog-meta span.bg-aqua,
 .blog-meta span.bg-aqua,
-.search-form .btn:hover,
-.search-form .btn:focus,
-.search-form .btn,
+.search-form .btn:hover, .search-form .btn:focus, .search-form .btn,
 .btn,
 .btn:hover,
 .dropdown-item:hover,
@@ -1848,10 +2191,11 @@ p,
 .dmtop,
 .page-link,
 .topbar-section {
-    color: #ffffff !important;
-    background-color: #74a044 !important;
-    border-color: #74a044 !important;
+	color:#ffffff !important;
+	background-color: #74a044 !important;
+	border-color: #74a044 !important;
 }
+
 
 .authorbox p a,
 .pp a,
