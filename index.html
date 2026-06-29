@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 <style>
 
 /* -------------------- GLOBAL -------------------- */
@@ -617,26 +618,13 @@ nav h4.active{
 }
 </style>
 <link rel="stylesheet" href="css/css2">
-<link rel="stylesheet" href="css/inline_1.1782739204096.css">
-<link rel="stylesheet" href="css/inline_2.1782739204096.css">
-<link rel="stylesheet" href="css/inline_3.1782739204096.css">
+<link rel="stylesheet" href="css/css2">
+<link rel="stylesheet" href="css/inline_1.1782739923981.css">
+<link rel="stylesheet" href="css/inline_2.1782739923981.css">
+<link rel="stylesheet" href="css/inline_3.1782739923981.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-
-
-
-
-
-
-
-
-
-
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
 
 
 
@@ -644,7 +632,129 @@ nav h4.active{
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Luxury Florist</title>
     
+<script>
 
+function initTemplateNavSlider() {
+  let templateNavIndex = 0;
+  const templateNavCards = document.querySelectorAll(".template-card");
+  const templateNavPrev = document.querySelector(".templateNav-left");
+  const templateNavNext = document.querySelector(".templateNav-right");
+
+  if (!templateNavCards.length) return;
+
+  function templateNavShowCard(i) {
+    templateNavCards.forEach(c => c.classList.remove("active"));
+    templateNavCards[i].classList.add("active");
+  }
+
+  if (templateNavPrev && templateNavNext) {
+    templateNavNext.onclick = () => {
+      templateNavIndex = (templateNavIndex + 1) % templateNavCards.length;
+      templateNavShowCard(templateNavIndex);
+    };
+
+    templateNavPrev.onclick = () => {
+      templateNavIndex = (templateNavIndex - 1 + templateNavCards.length) % templateNavCards.length;
+      templateNavShowCard(templateNavIndex);
+    };
+
+    setInterval(() => {
+      templateNavIndex = (templateNavIndex + 1) % templateNavCards.length;
+      templateNavShowCard(templateNavIndex);
+    }, 3000);
+  }
+}
+
+// Mobile hamburger toggle
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("nav-toggle");
+  const links = document.getElementById("nav-links");
+
+  if (toggle && links) {
+    toggle.addEventListener("click", () => {
+      links.classList.toggle("show");
+    });
+  }
+});
+
+async function loadProducts() {
+  const wrapper = document.querySelector(".templateNav-wrapper");
+  const list = document.querySelector(".template-list");
+
+  if (!wrapper || !list) {
+    console.error("Wrapper or list not found in DOM.");
+    return;
+  }
+
+  /* ---------------------------------------------------
+     1) PREVIEW MODE → ALWAYS SHOW DEFAULT PRODUCTS + NAV
+  --------------------------------------------------- */
+  if (window.previewMode) {
+    console.log("Preview mode enabled — using default products.");
+    wrapper.style.display = "block";
+    return;
+  }
+
+  /* ---------------------------------------------------
+     2) NORMAL MODE → TRY LOADING products.json
+  --------------------------------------------------- */
+  try {
+    const res = await fetch("Products/products.json");
+
+    // JSON missing → hide wrapper + hide nav
+    if (!res.ok) {
+      console.warn("products.json not found — hiding store.");
+      wrapper.style.display = "none";
+      return;
+    }
+
+    // JSON exists → show wrapper + show nav
+    wrapper.style.display = "block";
+    showStoreNav();
+
+    const data = await res.json();
+    const products = data.products ?? [];
+
+    list.innerHTML = "";
+
+    products.forEach((p) => {
+      const lowestVariant = p.variants?.length
+        ? p.variants.reduce((min, v) => (v.price < min.price ? v : min))
+        : null;
+
+      const price = lowestVariant ? lowestVariant.price : p.basePrice ?? "N/A";
+
+      const card = document.createElement("div");
+      card.className = "template-card";
+
+      card.innerHTML = `
+        <img src="${p.image}" alt="">
+        <h3>${p.name}</h3>
+        <p>${p.description}</p>
+        <div class="price">€${price}</div>
+        <a class="btn" href="#">Add To Cart</a>
+      `;
+
+      list.appendChild(card);
+    });
+
+    initTemplateNavSlider();
+
+  } catch (err) {
+    console.error("Error loading products:", err);
+    wrapper.style.display = "none";
+    hideStoreNav();
+  }
+}
+
+    document.addEventListener("DOMContentLoaded", () => {
+  // Make preview mode globally accessible
+  const urlParams = new URLSearchParams(window.location.search);
+  window.previewMode = urlParams.get("preview") === "true";
+
+  loadProducts();
+});
+</script>
 
 
 
@@ -665,7 +775,7 @@ nav h4.active{
 <!-- hero section -->
 <!-- hero section -->
 <div id="hero">
-    <img class="hero-bg" src="images/img_0.1782739204096.jpg" alt="Luxury Florist Hero" style="cursor: pointer;">
+    <img class="hero-bg" src="images/img_0.1782739923981.jpg" alt="Luxury Florist Hero" style="cursor: pointer;">
 
     <div class="hero-text fade-in">
         <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Luxury Floral Design</h2>
@@ -688,19 +798,19 @@ nav h4.active{
     <div class="about-wrapper">
 
         <div class="about-tab fade-in">
-            <img src="images/img_1.1782739204096.jpg" style="cursor: pointer;">
+            <img src="images/img_1.1782739923981.jpg" style="cursor: pointer;">
             <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Wedding Florals</h2>
             <p style="padding: 0rem 2rem 2rem; cursor: pointer;" data-text-edit-listener="true" class="">Elegant bouquets, arches &amp; centerpieces designed to elevate your big day.</p>
         </div>
 
         <div class="about-tab fade-in">
-            <img src="images/img_2.1782739204096.jpg" style="cursor: pointer;">
+            <img src="images/img_2.1782739923981.jpg" style="cursor: pointer;">
             <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Event Styling</h2>
             <p style="padding: 0rem 2rem 2rem; cursor: pointer;" data-text-edit-listener="true" class="">Luxury floral styling for corporate events, launches &amp; celebrations.</p>
         </div>
 
         <div class="about-tab fade-in">
-            <img src="images/img_3.1782739204096.jpg" style="cursor: pointer;">
+            <img src="images/img_3.1782739923981.jpg" style="cursor: pointer;">
             <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Bespoke Bouquets</h2>
             <p style="padding: 0rem 2rem 2rem; cursor: pointer;" data-text-edit-listener="true" class="">Hand‑crafted arrangements tailored to your style, mood &amp; occasion.</p>
         </div>
@@ -714,43 +824,43 @@ nav h4.active{
   <div class="template-list">
 
     <div class="template-card active">
-      <img src="images/img_4.1782739204096.jpg" alt="" style="cursor: pointer;">
+      <img src="images/img_4.1782739923981.jpg" alt="" style="cursor: pointer;">
       <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
       <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
       <div class="price">€29</div>
-      <a class="btn" href="https://raw.githubusercontent.com/Puff3r-Ruff/billysbarnyard-com/main/prefabs/florist/#">Buy Now</a>
+      <a class="btn" href="/prefabs/florist/#">Buy Now</a>
     </div>
 
     <div class="template-card">
-      <img src="images/img_5.1782739204096.jpg" alt="" style="cursor: pointer;">
+      <img src="images/img_5.1782739923981.jpg" alt="" style="cursor: pointer;">
       <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
       <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
       <div class="price">€19</div>
-      <a class="btn" href="https://raw.githubusercontent.com/Puff3r-Ruff/billysbarnyard-com/main/prefabs/florist/#">Buy Now</a>
+      <a class="btn" href="/prefabs/florist/#">Buy Now</a>
     </div>
 
     <div class="template-card">
-      <img src="images/img_6.1782739204096.jpg" alt="" style="cursor: pointer;">
+      <img src="images/img_6.1782739923981.jpg" alt="" style="cursor: pointer;">
       <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
       <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
       <div class="price">€39</div>
-      <a class="btn" href="https://raw.githubusercontent.com/Puff3r-Ruff/billysbarnyard-com/main/prefabs/florist/#">Buy Now</a>
+      <a class="btn" href="/prefabs/florist/#">Buy Now</a>
     </div>
 
     <div class="template-card">
-      <img src="images/img_7.1782739204096.jpg" alt="" style="cursor: pointer;">
+      <img src="images/img_7.1782739923981.jpg" alt="" style="cursor: pointer;">
       <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
       <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
       <div class="price">€19</div>
-      <a class="btn" href="https://raw.githubusercontent.com/Puff3r-Ruff/billysbarnyard-com/main/prefabs/florist/#">Buy Now</a>
+      <a class="btn" href="/prefabs/florist/#">Buy Now</a>
     </div>
 
     <div class="template-card">
-      <img src="images/img_8.1782739204096.jpg" alt="" style="cursor: pointer;">
+      <img src="images/img_8.1782739923981.jpg" alt="" style="cursor: pointer;">
       <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
       <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
       <div class="price">€39</div>
-      <a class="btn" href="https://raw.githubusercontent.com/Puff3r-Ruff/billysbarnyard-com/main/prefabs/florist/#">Buy Now</a>
+      <a class="btn" href="/prefabs/florist/#">Buy Now</a>
     </div>
 
   </div>
@@ -762,15 +872,42 @@ nav h4.active{
 
 
 
+<script>
+let templateNavIndex = 0;
+const templateNavCards = document.querySelectorAll(".template-card");
+const templateNavPrev = document.querySelector(".templateNav-left");
+const templateNavNext = document.querySelector(".templateNav-right");
 
+function templateNavShowCard(i) {
+  templateNavCards.forEach(c => c.classList.remove("active"));
+  templateNavCards[i].classList.add("active");
+}
+
+if (templateNavPrev && templateNavNext) {
+  templateNavNext.addEventListener("click", () => {
+    templateNavIndex = (templateNavIndex + 1) % templateNavCards.length;
+    templateNavShowCard(templateNavIndex);
+  });
+
+  templateNavPrev.addEventListener("click", () => {
+    templateNavIndex = (templateNavIndex - 1 + templateNavCards.length) % templateNavCards.length;
+    templateNavShowCard(templateNavIndex);
+  });
+
+  setInterval(() => {
+    templateNavIndex = (templateNavIndex + 1) % templateNavCards.length;
+    templateNavShowCard(templateNavIndex);
+  }, 3000);
+}
+</script>
 <!-- Store Snippet End -->
 
 <!-- gallery -->
 <div id="gallery">
-    <img src="images/img_9.1782739204096.jpg" style="cursor: pointer;">
-    <img src="images/img_10.1782739204096.jpg" style="cursor: pointer;">
-    <img src="images/img_11.1782739204096.jpg" style="cursor: pointer;">
-    <img src="images/img_12.1782739204096.jpg" style="cursor: pointer;">
+    <img src="images/img_9.1782739923981.jpg" style="cursor: pointer;">
+    <img src="images/img_10.1782739923981.jpg" style="cursor: pointer;">
+    <img src="images/img_11.1782739923981.jpg" style="cursor: pointer;">
+    <img src="images/img_12.1782739923981.jpg" style="cursor: pointer;">
 </div>
 
 
@@ -816,20 +953,93 @@ nav h4.active{
 
 
 
+<script>
 
+/* -------------------- NAV CAROUSEL -------------------- */
 
+const slides = document.querySelectorAll(".slide");
+const leftArrow = document.querySelector(".left-arrow");
+const rightArrow = document.querySelector(".right-arrow");
 
+let index = 0;
+let autoRotate;
 
+function showSlide(i){
+    slides.forEach(s => s.classList.remove("active"));
+    slides[i].classList.add("active");
+}
 
+function nextSlide(){
+    index = (index + 1) % slides.length;
+    showSlide(index);
+}
 
+function prevSlide(){
+    index = (index - 1 + slides.length) % slides.length;
+    showSlide(index);
+}
 
+function startAuto(){
+    autoRotate = setInterval(nextSlide, 3000);
+}
 
+function stopAuto(){
+    clearInterval(autoRotate);
+}
 
+showSlide(index);
+startAuto();
+
+rightArrow.addEventListener("click", () => { stopAuto(); nextSlide(); });
+leftArrow.addEventListener("click", () => { stopAuto(); prevSlide(); });
+
+/* -------------------- ABOUT CAROUSEL -------------------- */
+
+const aboutTabs = document.querySelectorAll(".about-tab");
+const aboutLeft = document.querySelector(".about-left");
+const aboutRight = document.querySelector(".about-right");
+
+let aboutIndex = 0;
+let aboutAuto;
+
+function showAbout(i){
+    aboutTabs.forEach(t => t.classList.remove("active"));
+    aboutTabs[i].classList.add("active");
+}
+
+function nextAbout(){
+    aboutIndex = (aboutIndex + 1) % aboutTabs.length;
+    showAbout(aboutIndex);
+}
+
+function prevAbout(){
+    aboutIndex = (aboutIndex - 1 + aboutTabs.length) % aboutTabs.length;
+    showAbout(aboutIndex);
+}
+
+function startAboutAuto(){
+    aboutAuto = setInterval(nextAbout, 3000);
+}
+
+function stopAboutAuto(){
+    clearInterval(aboutAuto);
+}
+
+showAbout(aboutIndex);
+startAboutAuto();
+
+aboutRight.addEventListener("click", () => { stopAboutAuto(); nextAbout(); });
+aboutLeft.addEventListener("click", () => { stopAboutAuto(); prevAbout(); });
+
+</script>
 
 
 <script src="js/clerk.browser.js"></script>
 <script src="js/stripe.js"></script>
-<script src="js/inline_1.1782739204096.js"></script>
+<script src="js/inline_1.1782739923981.js"></script>
+<script src="js/inline_2.1782739923981.js"></script>
+<script src="js/inline_3.1782739923981.js"></script>
+<script src="js/inline_4.1782739923981.js"></script>
 
 </body>
 </html>
