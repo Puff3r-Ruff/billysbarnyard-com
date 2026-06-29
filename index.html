@@ -1,448 +1,415 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
-<link href="/prefabs/forest-time/css/bootstrap.css" rel="stylesheet">
-<link href="/prefabs/forest-time/css/font-awesome.min.css" rel="stylesheet">
-<link href="/prefabs/forest-time/style.css" rel="stylesheet">
-<style>.bg-aqua{display: none;}.blog-list-widget small{display: none;}</style>
-<link rel="stylesheet" href="css/css">
-<link rel="stylesheet" href="css/font-awesome.min.1782741303274.css">
-<link rel="stylesheet" href="css/style.1782741303274.css">
-<link rel="stylesheet" href="css/bootstrap.1782741303274.css">
-<link rel="stylesheet" href="css/inline_2.1782741303274.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Lora:wght@400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/prefabs/bridal/css/bridal.css">
+<style>
+/* POPUP OVERLAY */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* POPUP BOX */
+.popup-box {
+    background: #fff;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 10px;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+/* CLOSE BUTTON */
+#close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* FORM STYLING */
+.popup-form input,
+.popup-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.popup-form button {
+    width: 100%;
+    padding: 12px;
+    background: #c49b6c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+</style>
+<link rel="stylesheet" href="css/css2">
+<link rel="stylesheet" href="css/bridal.1782742058008.css">
+<link rel="stylesheet" href="css/inline_2.1782742058008.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
 
 
-    <!-- Basic -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <!-- Site Metas -->
-    <title>Stylish Template</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="" type="">
-    <link rel="apple-touch-icon" href="">
-    
-    <!-- Design fonts -->
-     
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bridal Boutique</title>
 
-    <!-- Bootstrap core CSS -->
-    
-
-    <!-- FontAwesome Icons core CSS -->
-    
-
-    <!-- Custom styles for this template -->
-    
-
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<!-- PREMIUM FONTS -->
 
 
+<script>
+
+function initTemplateNavSlider() {
+  let templateNavIndex = 0;
+  const templateNavCards = document.querySelectorAll(".template-card");
+  const templateNavPrev = document.querySelector(".templateNav-left");
+  const templateNavNext = document.querySelector(".templateNav-right");
+
+  if (!templateNavCards.length) return;
+
+  function templateNavShowCard(i) {
+    templateNavCards.forEach(c => c.classList.remove("active"));
+    templateNavCards[i].classList.add("active");
+  }
+
+  if (templateNavPrev && templateNavNext) {
+    templateNavNext.onclick = () => {
+      templateNavIndex = (templateNavIndex + 1) % templateNavCards.length;
+      templateNavShowCard(templateNavIndex);
+    };
+
+    templateNavPrev.onclick = () => {
+      templateNavIndex = (templateNavIndex - 1 + templateNavCards.length) % templateNavCards.length;
+      templateNavShowCard(templateNavIndex);
+    };
+
+    setInterval(() => {
+      templateNavIndex = (templateNavIndex + 1) % templateNavCards.length;
+      templateNavShowCard(templateNavIndex);
+    }, 3000);
+  }
+}
+
+// Mobile hamburger toggle
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("nav-toggle");
+  const links = document.getElementById("nav-links");
+
+  if (toggle && links) {
+    toggle.addEventListener("click", () => {
+      links.classList.toggle("show");
+    });
+  }
+});
+
+async function loadProducts() {
+  const wrapper = document.querySelector(".templateNav-wrapper");
+  const list = document.querySelector(".template-list");
+
+  if (!wrapper || !list) {
+    console.error("Wrapper or list not found in DOM.");
+    return;
+  }
+
+  /* ---------------------------------------------------
+     1) PREVIEW MODE → ALWAYS SHOW DEFAULT PRODUCTS + NAV
+  --------------------------------------------------- */
+  if (window.previewMode) {
+    console.log("Preview mode enabled — using default products.");
+    wrapper.style.display = "block";
+    return;
+  }
+
+  /* ---------------------------------------------------
+     2) NORMAL MODE → TRY LOADING products.json
+  --------------------------------------------------- */
+  try {
+    const res = await fetch("Products/products.json");
+
+    // JSON missing → hide wrapper + hide nav
+    if (!res.ok) {
+      console.warn("products.json not found — hiding store.");
+      wrapper.style.display = "none";
+      return;
+    }
+
+    // JSON exists → show wrapper + show nav
+    wrapper.style.display = "block";
+    showStoreNav();
+
+    const data = await res.json();
+    const products = data.products ?? [];
+
+    list.innerHTML = "";
+
+    products.forEach((p) => {
+      const lowestVariant = p.variants?.length
+        ? p.variants.reduce((min, v) => (v.price < min.price ? v : min))
+        : null;
+
+      const price = lowestVariant ? lowestVariant.price : p.basePrice ?? "N/A";
+
+      const card = document.createElement("div");
+      card.className = "template-card";
+
+      card.innerHTML = `
+        <img src="${p.image}" alt="">
+        <h3>${p.name}</h3>
+        <p>${p.description}</p>
+        <div class="price">€${price}</div>
+        <a class="btn" href="#">Add To Cart</a>
+      `;
+
+      list.appendChild(card);
+    });
+
+    initTemplateNavSlider();
+
+  } catch (err) {
+    console.error("Error loading products:", err);
+    wrapper.style.display = "none";
+    hideStoreNav();
+  }
+}
+
+    document.addEventListener("DOMContentLoaded", () => {
+  // Make preview mode globally accessible
+  const urlParams = new URLSearchParams(window.location.search);
+  window.previewMode = urlParams.get("preview") === "true";
+
+  loadProducts();
+});
+</script>
 
 
-    <div id="wrapper">
-        
-<div class="topbar-section">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="topsocial">
-                            <i class="fa fa-facebook"></i>
-                            <i class="fa fa-youtube"></i>
-                            <i class="fa fa-pinterest"></i>
-                            <i class="fa fa-twitter"></i>
-                            <i class="fa fa-flickr"></i>
-                            <i class="fa fa-instagram"></i>
-                            <i class="fa fa-google-plus"></i>
-                        </div><!-- end social -->
-                    </div><!-- end col -->
 
-                    <div class="col-lg-4 hidden-md-down">
-                    </div><!-- end col -->
+<div id="contain">
 
-                    </div><!-- end col -->
-                </div><!-- end row -->
-            </div><!-- end header-logo -->
-        </div><!-- end topbar -->
+<nav>
+    <h1 data-text-edit-listener="true" class="" style="cursor: pointer;">Business Name</h1>
+</nav>
 
-<div class="header-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="logo" id="logoArea" style="cursor:pointer;">
-                    <img id="logoImage" src="images/img_0.1782741303274.jpg" width="300" height="100" alt="">
-                </div>
-            </div>
-        </div>
+<div id="hero">
+    <img src="images/img_0.1782742058008.jpg" alt="Bridal Gown" style="cursor: pointer;">
+    <div id="hero-text">
+        <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Dream Dress Awaits</h2>
+        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Discover timeless elegance, luxurious fabrics, and handcrafted details designed to make your special day unforgettable.</p>
+        <a href="/prefabs/bridal/#" id="open-popup">Book Appointment</a>
     </div>
 </div>
 
-        <section class="section first-section">
-            <div class="container-fluid">
-                <div class="masonry-blog clearfix">
-                    <div class="left-side">
-                        <div class="masonry-box post-media">
-                             <img src="images/img_1.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        
-                                        <h4 style="color: rgb(255, 255, 255); cursor: pointer;" data-text-edit-listener="true" class="">How to choose high quality soil for your gardens</h4>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                            </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end left-side -->
+<section id="about">
+    <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">About Us</h2>
+    <p data-text-edit-listener="true" class="" style="cursor: pointer;">
+        Welcome to our bridal boutique — a place where elegance, romance, and timeless beauty come together.
+        Use this space to tell your story: who you are, what inspires your work, and what makes your boutique
+        special. Share your passion, your experience, and the heart behind your business so brides can feel
+        connected the moment they arrive.
+    </p>
+</section>
 
-                    <div class="center-side">
-                        <div class="masonry-box post-media">
-                             <img src="images/img_2.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                       
-                                        <h4 style="color: rgb(255, 255, 255); cursor: pointer;" data-text-edit-listener="true" class="">You can create a garden with furniture in your home</h4>
-                                        
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                            </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end left-side -->
+<!-- Store Snippet Start -->
+<div class="templateNav-wrapper">
+  <div class="template-list">
 
-                    <div class="right-side">
-                        <div class="masonry-box post-media">
-                             <img src="images/img_3.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        
-                                        <h4 style="color: rgb(255, 255, 255); cursor: pointer;" data-text-edit-listener="true" class="">The success of the 10 companies in the vegetable sector</h4>
-                                        
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                             </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end right-side -->
-                </div><!-- end masonry -->
-            </div>
-        </section>
+    <div class="template-card active">
+      <img src="images/img_1.1782742058008.jpg" alt="" style="cursor: pointer;">
+      <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
+      <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
+      <div class="price">€29</div>
+      <a class="btn" href="/prefabs/bridal/#">Buy Now</a>
+    </div>
 
-        <section class="section wb">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-                        <div class="page-wrapper">
-                            <div class="blog-list clearfix">
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            
-                                                <img src="images/img_4.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                                <div class="hovereffect"></div>
-                                            
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
+    <div class="template-card">
+      <img src="images/img_2.1782742058008.jpg" alt="" style="cursor: pointer;">
+      <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
+      <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
+      <div class="price">€19</div>
+      <a class="btn" href="/prefabs/bridal/#">Buy Now</a>
+    </div>
 
-                                    <div class="blog-meta big-meta col-md-8">
-                                        
-                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;">The best twenty plant species you can look at at home</h4>
-                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
+    <div class="template-card">
+      <img src="images/img_3.1782742058008.jpg" alt="" style="cursor: pointer;">
+      <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
+      <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
+      <div class="price">€39</div>
+      <a class="btn" href="/prefabs/bridal/#">Buy Now</a>
+    </div>
 
-                                <hr class="invis">
+    <div class="template-card">
+      <img src="images/img_4.1782742058008.jpg" alt="" style="cursor: pointer;">
+      <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product</h3>
+      <p data-text-edit-listener="true" class="" style="cursor: pointer;">Your Product Description</p>
+      <div class="price">€19</div>
+      <a class="btn" href="/prefabs/bridal/#">Buy Now</a>
+    </div>
 
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            
-                                                <img src="images/img_5.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                                <div class="hovereffect"></div>
-                                        
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
+  </div>
 
-                                    <div class="blog-meta big-meta col-md-8">
-                                        
-                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;">How do you like the idea of creating a garden from the Amazon forests?</h4>
-                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                        
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            
-                                                <img src="images/img_6.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                                <div class="hovereffect"></div>
-                                            
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8">
-                                        
-                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;">Top 20 cafeterias decorated with quality plants</h4>
-                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu bandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                    
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            
-                                                <img src="images/img_7.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                                <div class="hovereffect"></div>
-                                            
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8">
-                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;">30 beautiful flowers you can look at in offices and workplaces</h4>
-                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            
-                                                <img src="images/img_8.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                                <div class="hovereffect"></div>
-                                            
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8">
-                                        <span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a title="">Indoor</a></span>
-                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;">Enjoy your living room with small garden biblings</h4>
-                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            
-                                                <img src="images/img_9.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                                <div class="hovereffect"></div>
-                                            
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8">
-                                        
-                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;">Why do you prefer small flowers at your workplace?</h4>
-                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            
-                                                <img src="images/img_10.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                                <div class="hovereffect"></div>
-                                
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8"><span class="bg-aqua" data-text-edit-listener="true" style="cursor: pointer;"><a title="">Indoor</a></span>
-                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;">10 special plant species available to live in the window</h4>
-                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            
-                                                <img src="images/img_11.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                                <div class="hovereffect"></div>
-                                            
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8">
-                                        
-                                        <h4 data-text-edit-listener="true" class="" style="cursor: pointer;">Selection of high quality soil for vegetable gardening</h4>
-                                        <p data-text-edit-listener="true" class="" style="cursor: pointer;">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                       
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-                            </div><!-- end blog-list -->
-                        </div><!-- end page-wrapper -->
-
-                        <hr class="invis">
-
-                        
-                    </div><!-- end col -->
-
-                    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                        <div class="sidebar">
-                            <div class="widget">
-                                <h2 class="widget-title">Recent Posts</h2>
-                                <div class="blog-list-widget">
-                                    <div class="list-group">
-                                        
-                                            <div class="w-100 justify-content-between">
-                                                <img src="images/img_12.1782741303274.jpg" alt="" class="img-fluid float-left" style="cursor: pointer;">
-                                                <h5 class="mb-1">5 Beautiful buildings you need to before dying</h5>
-                                                <small>12 Jan, 2016</small>
-                                            </div>
-                                        
-
-                                        
-                                            <div class="w-100 justify-content-between">
-                                                <img src="images/img_13.1782741303274.jpg" alt="" class="img-fluid float-left" style="cursor: pointer;">
-                                                <h5 class="mb-1">Let's make an introduction for creative life</h5>
-                                                <small>11 Jan, 2016</small>
-                                            </div>
-                                        
-
-                                       
-                                            <div class="w-100 last-item justify-content-between">
-                                                <img src="images/img_14.1782741303274.jpg" alt="" class="img-fluid float-left" style="cursor: pointer;">
-                                                <h5 class="mb-1">Did you see the most beautiful sea in the world?</h5>
-                                                <small>07 Jan, 2016</small>
-                                            </div>
-                                        
-                                    </div>
-                                </div><!-- end blog-list -->
-                            </div><!-- end widget -->
-
-                            <div class="widget">
-                                <h2 class="widget-title">Advertising</h2>
-                                <div class="banner-spot clearfix">
-                                    <div class="banner-img">
-                                        <img src="images/img_15.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                    </div><!-- end banner-img -->
-                                </div><!-- end banner -->
-                            </div><!-- end widget -->
-
-                            <div class="widget">
-                                <h2 class="widget-title">Instagram Feed</h2>
-                                <div class="instagram-wrapper clearfix">
-                                    <a>
-                                    <img src="images/img_16.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                    </a>
-                                    <a>
-                                    <img src="images/img_17.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                    </a>
-                                    <a>
-                                    <img src="images/img_18.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                    </a>
-                                    <a>
-                                    <img src="images/img_19.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                    </a>
-                                    <a>
-                                    <img src="images/img_20.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                    </a>
-                                    <a>
-                                    <img src="images/img_21.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                    </a>
-                                    <a>
-                                    <img src="images/img_22.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                    </a>
-                                    <a>
-                                    <img src="images/img_23.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                    </a>
-                                    <a>
-                                    <img src="images/img_24.1782741303274.jpg" alt="" class="img-fluid" style="cursor: pointer;">
-                                    </a> 
-                                </div><!-- end Instagram wrapper -->
-                            </div><!-- end widget -->
-
-                            
-                        </div><!-- end sidebar -->
-                    </div><!-- end col -->
-                </div><!-- end row -->
-            </div><!-- end container -->
-        </section>
-
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <div class="widget">
-                            <div class="footer-text text-center">
-                                <img style="background-color: rgb(255, 255, 255); border-radius: 1rem; cursor: pointer;" id="footerLogo" src="images/img_25.1782741303274.jpg" alt="" class="img-fluid">
-                                <p data-text-edit-listener="true" class="" style="cursor: pointer;">Add text here</p>
-                                <div class="social">
-                                    <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>              
-                                    <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
-                                    <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
-                                    <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Google Plus"><i class="fa fa-google-plus"></i></a>
-                                    <a href="/prefabs/forest-time/#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
-                                </div>
-
-                                <hr class="invis">
-
-                                <div class="newsletter-widget text-center">
-                                    <form class="form-inline">
-                                        <input type="text" class="form-control" placeholder="Enter your email address">
-                                        <button type="submit" class="btn btn-primary" data-button-edit-listener="true" style="cursor: pointer;">Subscribe <i class="fa fa-envelope-open-o"></i></button>
-                                    </form>
-                                </div><!-- end newsletter -->
-                            </div><!-- end footer-text -->
-                        </div><!-- end widget -->
-                    </div><!-- end col -->
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <br>
-                        <br>
-                        <div class="copyright">© IdeaGo.ie</div>
-                    </div>
-                </div>
-            </div><!-- end container -->
-        </footer><!-- end footer -->
-        
-    <!-- end wrapper -->
-
-    <!-- Core JavaScript
-    ================================================== -->
-    <script src="/prefabs/forest-time/js/jquery.min.js"></script>
-    <script src="/prefabs/forest-time/js/tether.min.js"></script>
-    <script src="/prefabs/forest-time/js/bootstrap.min.js"></script>
-    <script src="/prefabs/forest-time/js/custom.js"></script>
+  <button class="templateNav-arrow templateNav-left" data-button-edit-listener="true" style="cursor: pointer;">❮</button>
+  <button class="templateNav-arrow templateNav-right" data-button-edit-listener="true" style="cursor: pointer;">❯</button>
+</div>
 
 
 
-<script src="js/clerk.browser.js"></script>
+<script>
+let templateNavIndex = 0;
+const templateNavCards = document.querySelectorAll(".template-card");
+const templateNavPrev = document.querySelector(".templateNav-left");
+const templateNavNext = document.querySelector(".templateNav-right");
+
+function templateNavShowCard(i) {
+  templateNavCards.forEach(c => c.classList.remove("active"));
+  templateNavCards[i].classList.add("active");
+}
+
+if (templateNavPrev && templateNavNext) {
+  templateNavNext.addEventListener("click", () => {
+    templateNavIndex = (templateNavIndex + 1) % templateNavCards.length;
+    templateNavShowCard(templateNavIndex);
+  });
+
+  templateNavPrev.addEventListener("click", () => {
+    templateNavIndex = (templateNavIndex - 1 + templateNavCards.length) % templateNavCards.length;
+    templateNavShowCard(templateNavIndex);
+  });
+
+  setInterval(() => {
+    templateNavIndex = (templateNavIndex + 1) % templateNavCards.length;
+    templateNavShowCard(templateNavIndex);
+  }, 3000);
+}
+</script>
+<!-- Store Snippet End -->
+
+<section id="gallery">
+    <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Our Gallery</h2>
+    <div class="gallery-grid">
+        <img src="images/img_5.1782742058008.jpg" style="cursor: pointer;">
+        <img src="images/img_6.1782742058008.jpg" style="cursor: pointer;">
+        <img src="images/img_7.1782742058008.jpg" style="cursor: pointer;">
+        <img src="images/img_8.1782742058008.jpg" style="cursor: pointer;">
+        <img src="images/img_9.1782742058008.jpg" style="cursor: pointer;">
+        <img src="images/img_10.1782742058008.jpg" style="cursor: pointer;">
+        <img src="images/img_11.1782742058008.jpg" style="cursor: pointer;">
+        <img src="images/img_12.1782742058008.jpg" style="cursor: pointer;">
+        <img src="images/img_13.1782742058008.jpg" style="cursor: pointer;">
+        <img src="images/img_14.1782742058008.jpg" style="cursor: pointer;">
+        <img src="images/img_15.1782742058008.jpg" style="cursor: pointer;">
+        <img src="images/img_16.1782742058008.jpg" style="cursor: pointer;">
+    </div>
+</section>
+
+<section id="signup">
+    <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Join Our Bridal Community</h2>
+    <p data-text-edit-listener="true" class="" style="cursor: pointer;">Be the first to know about new collections, exclusive events, and special appointments.</p>
+
+    <form>
+        <input type="email" placeholder="Enter your email" required="">
+        <button type="submit" data-button-edit-listener="true" style="cursor: pointer;">Sign Up</button>
+    </form>
+</section>
+
+<section id="contact">
+    <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Contact Us</h2>
+
+    <div class="contact-grid">
+        <div>
+            <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Visit Us</h3>
+            <p data-text-edit-listener="true" class="" style="cursor: pointer;">123 Bridal Lane<br>Cork, Co. Cork</p>
+        </div>
+
+        <div>
+            <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Hours</h3>
+            <p data-text-edit-listener="true" class="" style="cursor: pointer;">Mon–Fri: 10am – 6pm<br>Sat: 10am – 4pm<br>Sun: Closed</p>
+        </div>
+
+        <div>
+            <h3 data-text-edit-listener="true" class="" style="cursor: pointer;">Get In Touch</h3>
+            <p data-text-edit-listener="true" class="" style="cursor: pointer;">Email: info@bridalboutique.com<br>Phone: (000) 000‑0000</p>
+        </div>
+    </div>
+
+    <a href="/prefabs/bridal/#" id="open-popup-2" class="contact-btn">Book Your Appointment</a>
+</section>
+
+<footer>
+    © 2026 Bridal Boutique — Elegance in Every Detail
+</footer>
+
+</div>
+
+<!-- POPUP HTML -->
+<div id="contact-popup" class="popup-overlay">
+    <div class="popup-box">
+        <span id="close-popup" data-text-edit-listener="true" class="" style="cursor: pointer;">×</span>
+        <h2 data-text-edit-listener="true" class="" style="cursor: pointer;">Book Your Appointment</h2>
+
+        <form class="popup-form">
+            <input type="text" placeholder="Your Name" required="">
+            <input type="email" placeholder="Your Email" required="">
+            <input type="tel" placeholder="Phone Number" required="">
+            <textarea placeholder="Your Message" required=""></textarea>
+            <button type="submit" data-button-edit-listener="true" style="cursor: pointer;">Send</button>
+        </form>
+    </div>
+</div>
+
+<script>
+// OPEN POPUP
+document.getElementById("open-popup").addEventListener("click", function(e) {
+    e.preventDefault();
+    document.getElementById("contact-popup").style.display = "flex";
+});
+
+document.getElementById("open-popup-2").addEventListener("click", function(e) {
+    e.preventDefault();
+    document.getElementById("contact-popup").style.display = "flex";
+});
+
+// CLOSE POPUP
+document.getElementById("close-popup").addEventListener("click", function() {
+    document.getElementById("contact-popup").style.display = "none";
+});
+
+// CLOSE WHEN CLICKING OUTSIDE
+window.addEventListener("click", function(e) {
+    const popup = document.getElementById("contact-popup");
+    if (e.target === popup) {
+        popup.style.display = "none";
+    }
+});
+</script>
+
+
+
 <script src="js/stripe.js"></script>
-<script src="js/tether.min.1782741303274.js"></script>
-<script src="js/jquery.min.1782741303274.js"></script>
-<script src="js/custom.1782741303274.js"></script>
-<script src="js/bootstrap.min.1782741303274.js"></script>
+<script src="js/clerk.browser.js"></script>
+<script src="js/inline_1.1782742058008.js"></script>
+<script src="js/inline_2.1782742058008.js"></script>
+<script src="js/inline_3.1782742058008.js"></script>
 
 </body>
 </html>
