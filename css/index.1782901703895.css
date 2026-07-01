@@ -11,6 +11,45 @@ html, body {
     outline: none;
 }
 
+.social {
+    background-color: #2de1fc;
+    padding: 0.8rem 1rem;   /* tighter + balanced */
+    display: flex;
+    gap: 14px;              /* clean spacing between icons */
+    align-items: center;    /* keeps icons vertically aligned */
+}
+
+.social i {
+    color: #fff;
+    font-size: 1.2rem;      /* subtle, not oversized */
+    opacity: 0.9;           /* softer look */
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.social i:hover {
+    opacity: 1;
+    transform: translateY(-1px); /* tiny lift, classy */
+}
+
+
+.logoSection {
+    display: flex;
+    justify-content: center; /* centers horizontally */
+    align-items: center;     /* centers vertically if needed */
+    width: 100%;
+}
+
+.logo {
+    text-align: center; /* optional: keeps the image centered inside */
+}
+
+#logoImage {
+    display: block;
+    margin: 0 auto; /* ensures the image itself centers */
+}
+
+
 #container_head {
     padding: 1rem;
 }
@@ -90,7 +129,7 @@ html, body {
    FOOTER
    =========================== */
 footer {
-    background: #000;
+    background: #2de1fc;
     padding: 40px 0;
     margin-top: 60px;
 }
@@ -105,12 +144,12 @@ footer .subscribe {
 footer .subscribe h3 {
     font-size: 24px;
     margin-bottom: 10px;
-    color: #fff;
+    color: #000;
 }
 
 footer .subscribe p {
     font-size: 14px;
-    color: #fff;
+    color: #000;
     margin-bottom: 20px;
 }
 
@@ -204,9 +243,13 @@ footer .subscribe-form button:hover {
         width: 85%;
     }
 
+
+    footer .subscribe{width: 75%;padding: 1rem;border-radius: 1rem;}
+
     footer .subscribe-form {
         flex-direction: column;
         gap: 15px;
+        overflow: hidden;
     }
 
     footer .subscribe-form input,
