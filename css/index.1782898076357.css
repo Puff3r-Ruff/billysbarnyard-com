@@ -1,0 +1,216 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* prevents accidental overflow */
+}
+
+/* Remove debug outlines */
+* {
+    outline: none;
+}
+
+#container_head {
+    padding: 1rem;
+}
+
+/* ===========================
+   HEADER POSTS
+   =========================== */
+#headPost {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* allow wrapping on small screens */
+}
+
+#headPost > div {
+    flex: 1 1 300px; /* prevents overflow from large images */
+    position: relative;
+}
+
+#headPost img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+#headPost h3 {
+    position: absolute;
+    bottom: 0rem;
+    padding-left: 1rem;
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+/* ===========================
+   MAIN POSTS
+   =========================== */
+#mainPost {
+    width: 100%;
+}
+
+#mainPost .wrapper {
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+}
+
+#mainContent {
+    width: 45%;
+    margin: auto;
+}
+
+#mainPost .post {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    align-items: flex-start;
+    margin: 2rem 0; /* remove horizontal overflow */
+}
+
+#mainPost .post img {
+    width: 40%;
+}
+
+#mainPost .post .text {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+#mainPost h2 {
+    font-size: 1.5em;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* ===========================
+   FOOTER
+   =========================== */
+footer {
+    background: #000;
+    padding: 40px 0;
+    margin-top: 60px;
+}
+
+footer .subscribe {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+footer .subscribe h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+footer .subscribe p {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+footer .subscribe-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+footer .subscribe-form input {
+    padding: 10px;
+    width: 60%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+footer .subscribe-form button {
+    padding: 10px 20px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+footer .subscribe-form button:hover {
+    background: #256628;
+}
+
+/* ===========================
+   TABLETS (max-width: 900px)
+   =========================== */
+@media (max-width: 900px) {
+
+    #headPost {
+        width: 95%;
+        margin: auto;
+    }
+
+    #headPost > div {
+        flex: 1 1 55%;
+    }
+
+    #mainPost .wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #mainPost .post {
+        width: 90%;
+        margin: 1rem 0;
+    }
+
+    #mainPost .post img {
+        width: 45%;
+    }
+
+    #mainPost .post .text {
+        width: 55%;
+    }
+}
+
+/* ===========================
+   MOBILE (max-width: 600px)
+   =========================== */
+@media (max-width: 600px) {
+
+    #headPost {
+        flex-direction: column;
+    }
+
+    #headPost > div {
+        width: 100%;
+    }
+
+    #mainPost .post {
+        flex-direction: column;
+        width: 100%;
+        margin: 1rem 0;
+    }
+
+    #mainPost .post img {
+        width: 100%;
+    }
+
+    #mainPost .post .text {
+        width: 100%;
+    }
+
+    #mainContent {
+        width: 85%;
+    }
+
+    footer .subscribe-form {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    footer .subscribe-form input,
+    footer .subscribe-form button {
+        width: 100%;
+    }
+}
