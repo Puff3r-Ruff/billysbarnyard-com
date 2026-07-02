@@ -1,1 +1,3 @@
-{}
+{
+  "blog_default": "pages/blog_default/page.html"
+}
